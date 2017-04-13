@@ -1,0 +1,90 @@
+\ifglsentryexists{business}{}%
+{%
+\gls@defglossaryentry{business}%
+{%
+name={business},%
+sort={business},%
+type={main},%
+first={business},%
+firstplural={businesss},%
+text={business},%
+plural={businesss},%
+description={An economic entity that is to be represented as a node in the business graph},%
+descriptionplural={An economic entity that is to be represented as a node in the business graph},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{lambda}{}%
+{%
+\gls@defglossaryentry{lambda}%
+{%
+name={\ensuremath {\lambda }},%
+sort={lambda},%
+type={main},%
+first={\protect \ensuremath {\lambda }},%
+firstplural={\protect \ensuremath {\lambda }s},%
+text={\protect \ensuremath {\lambda }},%
+plural={\protect \ensuremath {\lambda }s},%
+description={Lambda!},%
+descriptionplural={Lambda!},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+}%
+\ifglsentryexists{bgn}{}%
+{%
+\gls@defglossaryentry{bgn}%
+{%
+name={BGN},%
+sort={BGN},%
+type={acronym},%
+first={business graph networks\glsspace (BGN)},%
+firstplural={business graph networkss\glsspace (BGNs)},%
+text={BGN},%
+plural={BGNs},%
+description={business graph networks},%
+descriptionplural={business graph networks\acrpluralsuffix },%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={business graph networks},%
+longplural={business graph networkss},%
+short={BGN},%
+shortplural={BGNs},%
+counter={page},%
+parent={},%
+%
+}%
+}%

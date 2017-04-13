@@ -3,56 +3,78 @@
         titlepage,   % mit Titelseite
         twoside,     % zweiseitig
         parskip      % mit Durchschuss
-                                 % (= Abstand zwischen Absätzen, statt Einrückung)
-        ]{scrartcl} % KOMA-Script Grundklasse     texdoc scrguide
+                     % (= Abstand zwischen Absätzen, statt Einrückung)
+        ]{scrartcl}  % KOMA-Script Grundklasse     texdoc scrguide
 
-%\usepackage{ngerman}              % Deutsche Sprache, neue RS   texdoc germdoc (?)
+%\usepackage{ngerman}             % Deutsche Sprache, neue RS   texdoc germdoc (?)
 \usepackage[T1]{fontenc}          % Schriftkodierung mit Umlauten
 \usepackage{textcomp,amsmath}     % Mathezeichen etc.
 \usepackage{graphicx}             % Graphiken einbinden
+\usepackage{hyperref}             % Hyperlinks fuer TOC, Glossar, etc.
+\usepackage[xindy,acronym,toc]{glossaries} % Glossar definieren
 
 % bibtex
 \usepackage{url}
 \bibliographystyle{plaindin}      % BibTeX Styles nach Norm DIN 1505
 
+% glossary entries
+\makeglossaries
+\newglossaryentry{business}{
+  name=business,
+  description={An economic entity that is to be represented as a node in the business graph}
+}
+\newglossaryentry{lambda}{
+  name={\ensuremath{\lambda}},
+  description={Lambda!},
+  sort=lambda
+}
+\newacronym{bgn}{BGN}{business graph networks}
+
+
 \titlehead{
 \includegraphics{hpi_logo_cmyk_wb_sl2}
-} \subject{Bachelorarbeit}
+}
+\subject{Bachelorarbeit}
 \title{Pattern Search and Analysis on Business Graphs
-\\ \bigskip 
+\\ \bigskip
 \large{Graphanalyse und Mustersuche auf Unternehmensgraphen}}
 \author{Milan Gruner\\{\small{\url{milangruner@gmail.com}}}}
-\date{Eingereicht am <Einreichungsdatum>}
+\date{Eingereicht am <TBD>}
 \publishers{
-Fachgebiet Informationssysteme \\ 
+Fachgebiet Informationssysteme \\
 Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
 
-
 \pagestyle{headings}    % Seitenstil mit Kapitelüberschriften in der Kopfzeile
-
 
 \begin{document}
 
   \maketitle    %  Titelseite erzeugen
+  \clearpage % neue Seite (war \cleardoublepage)
 
+  \section*{Abstract}
+  This is an abstract. TODO :P
 
-  \cleardoublepage % neue Doppelseite
+  \tableofcontents
+  %\listoffigures
+  %\listoftables
+  \clearpage
 
   % Und: Text \dots
   \section{Introduction}
-	\subsection{Abstract}
-	
-	
-	\clearpage	
-    \subsection{Glossary}
-    Business \\
+  \subsection{Glossary}
+	\glsaddall
+	\printglossary
+
+    \Gls{business} \\
+    \gls{lambda} \\
+    \gls{bgn} \\
     Subject \\
     Pattern \\
     Pattern Search \\
     Pattern Analysis \\
     Graph Analysis \\
     Graph Summarization \\
-    %\cite{bloom70space-time} 
+    %\cite{bloom70space-time}
 
     % Inhaltsverzeichnis
     \clearpage % auf neuer Seite
