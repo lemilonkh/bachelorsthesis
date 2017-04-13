@@ -11,7 +11,7 @@
 \usepackage{textcomp,amsmath}     % Mathezeichen etc.
 \usepackage{graphicx}             % Graphiken einbinden
 \usepackage{hyperref}             % Hyperlinks fuer TOC, Glossar, etc.
-\usepackage[xindy,acronym,toc]{glossaries} % Glossar definieren
+\usepackage[xindy,acronym,toc,acronym]{glossaries} % Glossar definieren
 
 % bibtex
 \usepackage{url}
@@ -64,6 +64,7 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
   \subsection{Glossary}
 	\glsaddall
 	\printglossary
+  \printglossary[type=\acronymtype]
 
     \Gls{business} \\
     \gls{lambda} \\
@@ -76,8 +77,8 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
     Graph Summarization \\
     %\cite{bloom70space-time}
 
-    % Inhaltsverzeichnis
+    % Referenzen
     \clearpage % auf neuer Seite
-    \bibliography{referenzen}
+    \bibliography{references}
 
 \end{document}
