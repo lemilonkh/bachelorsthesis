@@ -1,0 +1,17 @@
+\usepackage[xindy,acronym,toc,acronym]{glossaries} % Glossar definieren
+
+\setglossarystyle{list} % or altlist, listgroup, listhypergroup
+
+% glossary entries
+\newglossaryentry{business}{
+  name=business,
+  description={An economic entity that is to be represented as a node in the business graph}
+}
+\newglossaryentry{lambda}{
+  name={\ensuremath{\lambda}},
+  description={Lambda!},
+  sort=lambda
+}
+\newacronym{bgn}{BGN}{business graph networks}
+
+\makeglossaries

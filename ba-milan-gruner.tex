@@ -11,25 +11,12 @@
 \usepackage{textcomp,amsmath}     % Mathezeichen etc.
 \usepackage{graphicx}             % Graphiken einbinden
 \usepackage{hyperref}             % Hyperlinks fuer TOC, Glossar, etc.
-\usepackage[xindy,acronym,toc,acronym]{glossaries} % Glossar definieren
 
 % bibtex
 \usepackage{url}
 \bibliographystyle{plaindin}      % BibTeX Styles nach Norm DIN 1505
 
-% glossary entries
-\makeglossaries
-\newglossaryentry{business}{
-  name=business,
-  description={An economic entity that is to be represented as a node in the business graph}
-}
-\newglossaryentry{lambda}{
-  name={\ensuremath{\lambda}},
-  description={Lambda!},
-  sort=lambda
-}
-\newacronym{bgn}{BGN}{business graph networks}
-
+\include{glossaries}
 
 \titlehead{
 \includegraphics{hpi_logo_cmyk_wb_sl2}
@@ -59,26 +46,24 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
   %\listoftables
   \clearpage
 
-  % Und: Text \dots
   \section{Introduction}
   \subsection{Glossary}
 	\glsaddall
-	\printglossary
+  \printglossary
   \printglossary[type=\acronymtype]
 
-    \Gls{business} \\
-    \gls{lambda} \\
-    \gls{bgn} \\
-    Subject \\
-    Pattern \\
-    Pattern Search \\
-    Pattern Analysis \\
-    Graph Analysis \\
-    Graph Summarization \\
-    %\cite{bloom70space-time}
+  \Gls{business} \\
+  \gls{lambda} \\
+  \gls{bgn} \\
+  Subject \\
+  Pattern \\
+  Pattern Search \\
+  Pattern Analysis \\
+  Graph Analysis \\
+  Graph Summarization \\
+  %\cite{bloom70space-time}
 
-    % Referenzen
-    \clearpage % auf neuer Seite
-    \bibliography{references}
+  \clearpage
+  \bibliography{references}
 
 \end{document}
