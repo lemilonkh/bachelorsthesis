@@ -10,7 +10,7 @@
 \usepackage[T1]{fontenc}          % Schriftkodierung mit Umlauten
 \usepackage{textcomp,amsmath}     % Mathezeichen etc.
 \usepackage{graphicx}             % Graphiken einbinden
-\usepackage{hyperref}             % Hyperlinks fuer TOC, Glossar, etc.
+% \usepackage{hyperref}             % Hyperlinks fuer TOC, Glossar, etc.
 
 % bibtex
 \usepackage{url}
@@ -22,9 +22,9 @@
 \includegraphics{hpi_logo_cmyk_wb_sl2}
 }
 \subject{Bachelorarbeit}
-\title{Pattern Search and Analysis on Business Graphs
+\title{User-aided Pattern Search and Analysis on Business Graphs
 \\ \bigskip
-\large{Graphanalyse und Mustersuche auf Unternehmensgraphen}}
+\large{Nutzergesteuerte Graphanalyse und Mustersuche auf Unternehmensgraphen}}
 \author{Milan Gruner\\{\small{\url{milangruner@gmail.com}}}}
 \date{Eingereicht am <TBD>}
 \publishers{
@@ -46,22 +46,44 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
   %\listoftables
   \clearpage
 
-  \section{Introduction}
-  \subsection{Glossary}
-	\glsaddall
-  \printglossary
-  \printglossary[type=\acronymtype]
-
-  \Gls{business} \\
-  \gls{lambda} \\
-  \gls{bgn} \\
-  Subject \\
-  Pattern \\
-  Pattern Search \\
-  Pattern Analysis \\
-  Graph Analysis \\
-  Graph Summarization \\
+	%\glsaddall
+  %\printglossary
+  %\printglossary[type=\acronymtype
+  %\Gls{business} \\
+  %\gls{lambda} \\
+  %\gls{bgn} \\
   %\cite{bloom70space-time}
+
+  \section{Introduction}
+    \subsection{Glossary}
+  \section{Motivation}
+    \subsection{Understanding risk analysis on graphs}
+  \section{Used techniques and related works}
+  \section{Data structures for business entities}
+    \subsection{Graph encoding}
+    \subsection{The $subject$ data structure}
+    \subsection{A versioning scheme that stands the test of time}
+  \section{Architecture}
+    \subsection{Modularizing Spark jobs}
+    \subsection{Data flow using column family storage}
+  \section{Using Apache Spark and Cassandra for Graph Analysis}
+    \subsection{Writing efficient Spark code for Graphs}
+    \subsection{Cassandra-specific optimizations}
+  \section{Pattern Search}
+    \subsection{Discerning patterns from randomness}
+    \subsection{Pattern types and their applications}
+    \subsection{Operating on graph diffs}
+  \section{Pattern Analysis}
+    \subsection{User-aided approaches for Pattern Categorization}
+  \section{Graph Summarization}
+    \subsection{What users actually want to see}
+    \subsection{Compressing graph information to the bare minimum}
+    \subsection{Presenting graph data appealingly}
+  \section{Lessons learned}
+    \subsection{Benchmarks and Experiments}
+    \subsection{Technical challenges}
+
+  \section{Literature}
 
   \clearpage
   \bibliography{references}
