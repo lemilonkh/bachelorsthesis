@@ -39,12 +39,14 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
   \clearpage % neue Seite (war \cleardoublepage)
 
   \section*{Abstract}
-  This is an abstract. TODO :P
+  Costructing a graph made up of thousands of businesses maybe hard, but actually making sense of it is a lot harder.
+  With huge amounts of data being integrated into the data lake every day, automatic methods for finding interesting spots in the graph are needed.
+  This paper discusses different approaches that can be taken to extract useful knowledge from such a graph.
 
+  \clearpage
   \tableofcontents
   %\listoffigures
   %\listoftables
-  \clearpage
 
 	%\glsaddall
   %\printglossary
@@ -56,17 +58,17 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
 
   \section{Introduction}
     \subsection{Glossary}
-  \section{Motivation}
+    \subsection{Motivation}
     \subsection{Understanding risk analysis on graphs}
-  \section{Used techniques and related works}
+    \subsection{Used techniques and related works}
   \section{Data structures for business entities}
-    \subsection{Graph encoding}
+    \subsection{Graph encoding for column family storage}
     \subsection{The $subject$ data structure}
     \subsection{A versioning scheme that stands the test of time}
   \section{Architecture}
     \subsection{Modularizing Spark jobs}
     \subsection{Data flow using column family storage}
-  \section{Using Apache Spark and Cassandra for Graph Analysis}
+    \subsection{Using Apache Spark and Cassandra for Graph Analysis}
     \subsection{Writing efficient Spark code for Graphs}
     \subsection{Cassandra-specific optimizations}
   \section{Pattern Search}
@@ -81,6 +83,7 @@ Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze}
     \subsection{Presenting graph data appealingly}
   \section{Lessons learned}
     \subsection{Benchmarks and Experiments}
+    \subsection{Design decisions and trade-offs}
     \subsection{Technical challenges}
 
   \section{Literature}
