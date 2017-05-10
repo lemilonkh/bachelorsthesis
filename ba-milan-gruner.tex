@@ -42,9 +42,11 @@
   \clearpage % neue Seite (war \cleardoublepage)
 
   \section*{Abstract}
-  Costructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
-  With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting spots in the graph are needed.
-  This paper discusses different approaches that can be taken to extract useful knowledge from such a graph.
+  { \huge
+    Costructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
+    With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting spots in the graph are needed.
+    This paper discusses different approaches that can be taken to extract useful knowledge from such a graph.
+  }
 
   \clearpage
   \tableofcontents
@@ -63,7 +65,7 @@
     \subsection{Glossary}
     \subsection{Motivation}
     \subsection{Understanding risk analysis on graphs}
-    \subsection{Used techniques and related works}
+    \subsection{Used techniques and assumptions}
     \pagebreak
 
   \section{Data structures for business entities}
@@ -72,33 +74,37 @@
     \subsection{A versioning scheme that stands the test of time}
     \pagebreak
 
-  \section{Architecture}
+  \section{Architecture (opt.)}
     \subsection{Job and Data Management}
       \subsubsection{Modularizing Spark jobs}
       \subsubsection{Coordinating Spark jobs from NodeJS}
       \subsubsection{Managing Cassandra tables from NodeJS}
       \subsubsection{Data flow using column family storage}
     \subsection{Using Apache Spark and Cassandra for Graph Analysis}
+      \subsubsection{Motivation: Why Spark, Cassandra and GraphX?}
       \subsubsection{Writing efficient Spark GraphX code}
       \subsubsection{Optimizing Cassandra data structures for Graph Processing}
-      \pagebreak
-
-  \section{Pattern Search}
-    \subsection{Discerning patterns from randomness}
-    \subsection{Operating on graph diffs}
-    \subsection{Pattern types and their applications}
-    \pagebreak
-
-  \section{Pattern Analysis}
-    \subsection{User-aided approaches for Pattern Categorization}
-    \subsection{Pattern importance measures}
-    \subsection{Machine Learning Models for analyzing user feedback}
     \pagebreak
 
   \section{Graph Summarization}
     \subsection{What users actually want to see}
     \subsection{Compressing graph information to the bare minimum}
     \subsection{Presenting graph data appealingly}
+    \subsection{Related work}
+    \pagebreak
+
+  \section{Pattern Search}
+    \subsection{Discerning patterns from randomness}
+    \subsection{Operating on graph diffs}
+    \subsection{Pattern types and their applications}
+    \subsection{Related work}
+    \pagebreak
+
+  \section{Pattern Analysis}
+    \subsection{User-aided approaches for Pattern Categorization}
+    \subsection{Pattern importance measures}
+    \subsection{Machine Learning Models for analyzing user feedback}
+    \subsection{Related work}
     \pagebreak
 
   \section{Lessons learned}
