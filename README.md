@@ -1,6 +1,8 @@
 # User-aided Pattern Search and Analysis on Business Graphs
 Bachelor's thesis at HPI Potsdam
 
+## [Final PDF](/ba-milan-gruner.pdf)
+
 ## Abstract
 > Costructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
 > With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting spots in the graph are needed.
