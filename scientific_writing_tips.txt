@@ -1,0 +1,181 @@
+= BA Tipps (Scientific Writing) =
+Keine generischen Titel (Einleitung, Hauptteil, Evaluation, Zusammenfassung...)
+Keine Gliederungsebenen mit nur einem Abschnitt
+Anstatt Gliederung einfach fettes Stichwort an den Anfang des Absatzes setzen
+Oder einfach Absaetze allgemein zur Gleiderung nutzen
+
+TOC => LaTeX set depth to 2
+
+Kleine Einleitung vor Unterabschnitten (Motivationstext/ Outline)
+"Was erwartet mich in diesem Abschnitt"
+"Nach dem wir die Notation eingefuehrt haben sind wir nun bereit, die ...-Strategie zu betrachten"
+Erklaeren was folgt
+Ueberleitungen (sonst auch am Ende des vorherigen Abschnitts)
+Motiviert (warum noetig) Sachen einzufuehren => wofuer gebraucht? => bei jeder Einfuehrung von neuen techn. Eigenheiten
+Nur fachlich relevante Sachen erklaeren/ einfuehren
+
+== Gliederungsabschnitte ==
+Nicht weniger als 3 Saetze
+Nicht mehr als 1-2 Seiten (ohne Diagramme)
+Komplexe Gedanken/ Verfahren gut gliedern => Gedankenpausen
+Auch mittels Abbildungen moeglich
+Einleitung => Aufbau der Arbeit und Ueberblick ueber folgende Kapitel
+
+Keine Abbildungs- oder Tabellenverzeichnisse
+Jede Abbildung & Tabelle muss irgendwo nummeriert und referenziert werden (auch gern mehrfach)
+Formeln nur falls man darauf referenzieren will nummerieren (muss nicht konsistent sein)
+=> "nummerierte Formeln sind wichtig"
+
+== Referenzen (auf fremde Arbeiten)
+wo?
+- Abbildungen, Listings, Tabellen
+- woertliche Zitate
+- uebernommene Behauptungen
+- Beschreibungen fremder Arbeit
+
+== Referenzen im Text [1337] ==
+=> Nummern oder Buchstaben OK
+=> Eckige Klammern noetig
+Referenzen nicht als Satzteil benutzen
+=> Satz muss auch ohne Referenzen funktionieren
+=> NICHT "[17] shows that..."
+=> GUT: "The data shows that... [17]." => am Satzende (Satzteile auch ok)
+Autorennamen lassen sich im Text verwenden => Anerkennung der Person
+=> Referenz direkt an den Satz/ die Aussage, auf die sie sich bezieht
+Referenzen lieber frueh als spaet (nicht bei Zitaten)
+Seitenangaben sind nicht relevant (einfach ganzes Paper nennen)
+
+Deutsche Paper lassen sich auch referenzieren/ zitieren
+Bei Zitaten in Anfuehrungszeichen, am Ende "[translated from German]"
+Deutsche Beispiele lassen sich nehmen (besonders bei Textmining)
+Beispiel evtl. uebersetzen (nicht zu oft!)
+Nicht verrueckt machen
+Davon ausgehen, dass Leser beide Sprachen beherrschen
+
+== Referenzen im Literaturverzeichnis ==
+Buch
+  Autor, Titel, (Auflage), Verlage, Verlagsort, Jahr
+Zeitschriftenartikel
+  Autor, Titel, Zeitschrift, Jahrgang, (Heftnummer), Seitenzahlen, Jahr
+Beitrag im Tagungsband (inproceedings)
+  Autor, Titel, Name der Tagung, (Seitenzahlen), Jahr, (Herausgeber)
+WWW Seite
+  Meist als Fussnote moeglich
+
+Konsistenz! => BibTeX Makros, Layout Konsistenz
+Nicht komplette Quellenangaben einfach so kopieren (BibTeX), sondern kuerzen und an Stil anpassen
+
+Nur tatsaechlich referenzierte Referenzen auffuehren
+\cite{} vs. \cite*{} in LaTeX
+
+== Sprachlicher Stil ==
+1% Arbeiten nicht-sachlich
+Salopp nur, wenn es "richtig cool" ist
+=> Laissez-faire nur wenn wirklich gut
+=> Nicht angeraten
+Keine Umgangssprache
+Leser mitnehmen
+Nicht Leser direkt ansprechen!
+NICHT "Der geneigte Leser wird erkannt haben, dass..."
+=> Leser ist kein Subjekt
+
+Nicht DB oder relationales Modell erklaeren ^^
+Zielgruppe: Wir vor einem Jahr
+
+Erste Person singular (ich) vermeiden
+Erste Person plural (wir) nur unter besonderen Umstaenden
+Einfach anderes Subjekt waehlen
+=> Die Experimente/ Daten haben gezeigt...
+=> Allenfalls 'ich' im Ausblick (meiner Meinung nach...)
+=> Kennzeichnen als Weiterfuehrende Erklaerungen, die nicht sachlich belegt sind
+
+"Wir wenden uns jetzt dem Algorithmus 2 zu." => auch ok
+
+Nicht "wir" im Sinne der Projektgruppe
+Wenn dann "wir" als Co-Autoren
+
+KEINE Rechtschreib-/ Grammatikfehler (max. 1 Fehler pro Seite ^^)
+
+== Abbildungen ==
+Sprechende Bildunterschriften (1-2 Zeilen, NICHT 4)
+"Ingestion Architecture 4" statt "Architecture"
+Achsenbeschriftungen!!!
+Keine Screenshots, neu gestalten
+Am besten keine Abbildungen aus anderen Papern uebernehmen (Qualitaet)
+Text in Abb. sollte nicht kleiner sein als Text drumherum (nicht zu sehr)
+=> Lesbar (Augenmass)!
+
+xfig => Unix => gibt LaTeX aus
+
+Position der Abb. beachten (figure nach dem Absatz)
+=> Abb. nach Text
+=> Nicht automatisch davor
+Jede Abb. im Text referenzieren
+
+== Rechtschreibung ==
+dass vs. das xD
+dasselbe, nicht das selbe
+Ganze Saetze verwenden! => Keine Wortgruppen
+
+== Plagiate ==
+Abbildungen kopieren: ... aus [X99]
+Abbildungen nachbauen: ... nach [X99]
+
+Texte zitieren statt kopieren!
+Nicht einfach fremde Texte uebersetzen und dabei nicht zitieren
+=> Nicht 1:1 in Arbeit uebersetzen & uebertragen
+(Sprachlich anders als der Rest)
+
+Zusammenfassen wenn das Zitat zu lang ist
+=> In eigenen Worten
+=> Keine ganzen Absaetze zitieren (ausser in Ausnahmefaelle)
+
+Wikipedia-Quellen waeren ok, evtl eher Meta-Quellen des Artikels
+Evtl. Abfragezeitpunkt angeben (moeglich, nicht unbedingt noetig)
+
+== Literaturtipps ==
+- Bugs in Writing (da Informatik-Beispiele) (blaettern statt durchlesen)
+- Studien-Arbeiten - ein Leitfaden (Strukturierung, kein sprachl. Stil)
+- writing for computer science
+- Painless Writing (Standard in den USA)
+- The Elements of Style
+- Web => Ausarbeitung Seminar Hinweise
+
+== LaTeX tipps ==
+
+== General ==
+Bewertung 9:1 (BP:BA)
+BP-Note geht evtl. tw. in BA-Note ein (wenn gut)
+
+1x davor abgeben (Feedback) => mit Betreuern aufgeteilt
+2 Wochen vor Endabgabe (diese ist am 20.7.)
+Am besten verteilt ueber Zeitraum
+Arbeit muss vor Korrekturlesen nicht komplett perfekt sein (z.B. fehlende Grafiken)
+Soll zufrieden mit Arbeit sein
+Trotzdem keine Rechtschreibfehler (dann kaum Inhaltsfeedback)
+Wenn Kapitel fehlt laesst sich dieses auch nachreichen
+
+== Abgabe ==
+Ringbindung
+Einseitig => kein zweiseitiges Layout
+=> Im PDF gerade runter formatiert
+15-20 Seiten, im Spezialfall mehr
+Referenzen zaehlen mit rein (da ca. 1 Seite)
+
+Parallel an BA & BP arbeiten
+BA liefert Kontext & Experimente fuer Implementierung
+Ob Inhalt/ Projekt gut gelungen ist, fliesst semi in Arbeit ein
+Gegenseitig referenzieren moeglich und erwuenscht
+Arbeit von Alexander Immer war am besten, andere etwas schlechter aber <= 2.0
+
+== Paper Quellen ==
+Herschel-Naumann-Buch kann zitiert werden (ist aber auch nur Zusammenfassung von bekannten Arbeiten)
+Keine LaTeX-Buecher zitieren
+Google Scholar ok
+DBLP => http://dblp.uni-trier.de
+Research Gate => http://researchgate.net
+eMail an Autoren auch ok (1/4 der Faelle gibt Antworten)
+5% der Paper laesst sich partout nicht bekommen
+Keine Forschungsarbeit => Taetigkeit im BP & Ansaetze beschreiben
+Ca. 10 Arbeiten im Literaturverzeichnis (mehr auch ok)
+=> Anzahl egal (ausser es sind nur 2)

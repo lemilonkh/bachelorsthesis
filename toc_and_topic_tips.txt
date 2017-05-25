@@ -1,0 +1,175 @@
+Arbeiten nummerieren => Reihenfolge (partielle Ordnung?)
+Prozessschritte abbilden
+Internals nach Einfuehrung?
+
+=== Allgemein ===
+subject in jeder Arbeit (andere verweisen auf Nils Arbeit?)
+Moeglich (gleicher Text) => wenig kopieren, nicht ganze Kapitel
+Arbeit sollte self-contained sein
+Details lassen sich dort nachgucken
+Verstaendnis darf dadurch nicht beeintraechtigt werden
+Nicht Wissen vorraussetzen
+
+Oberueberschriften generell gross (ausser sehr kurze Worte => Oxford)
+In Unterueberschriften generell klein
+
+Sachlicher, nicht erzaehlender Schreibstil
+Oxford english ok, american english an sich Ausgang
+
+Gemeinsame Einleitung moeglich (1-1.5 seiten, von allen gemeinsam geschrieben)
+Evtl Abbildungen
+Gut fuer die Einordnung
+Alles noch einmal zusammenfuehren
+Funktion der Pipelines etc.
+
+Letzte 2 saetze offen => Ueberleitung in eigentliche Arbeit
+Andere Arbeiten dann verlinken
+1 Seite und 1 Diagramm (Architektur)
+Teil hervorheben, mit dem man sich dann im folgenden beschaeftigt
+
+15-20 Seiten
+BE CONCISE => Teil der Aufgabe!
+Wenig lesen, viel verstehen
+
+=== Milan ===
+Introduction nicht verwenden
+Motivation ist Einfuehrungstext (s.u.)
+Erwartungswerte darstellen
+Glossar in den Anhang (verlinken)
+Muss nicht unbedingt noetig sein
+Besser schreiben (muss an der Lesestelle stehen)
+Abkuerzungen 1 mal pro Kapitel wiederholen
+Begriffserklaerungen nicht
+
+Bps. subject Tabelle einfuehren
+Nicht immer neu erklaeren
+Evtl. in den Glossar blaettern um Wdh. zu sein
+Nicht-integraler Bestandteil des Texts
+
+Ein Einfuehrungstext pro Kapitel (Motivation) "2.0" (nicht sichtbar in Glierung)
+Nicht direkt in Gliederung
+
+Verben in Ueberschriften sind ok, aber eher ungewoehnlich
+
+Architecture weiter unten/ hinten
+Teil der Architektur an den Anfang (was zum Verstaendnis noetig ist)
+Rest ans Ende (viele Abb.)
+
+Graph Summarization koennte auch allein stehen als Arbeit
+Besser eine Sache sorgfaeltig als alles ein bisschen
+
+Nicht "Lessons learned" => eher "Benchmarks & Experiments"
+impliziert falsch gemacht
+Ausblick mit in die Ueberschrift oder eigenes Kapitel
+
+Eigenes Kapitel "Conclusion & outlook"
+Kann man aber auch in den Einzelkapiteln machen
+Dann
+
+Nicht "Literature", sondern "References"
+passiert automatisch wenn BiBTex eingebunden wird
+
+Waere nicht Schlimm, wenn die letzten Kapitel nichts werden
+Nicht zu viel machen
+
+=== Nils ===
+Evtl. Modeling rausnehmen
+Muss keine Subkapitel Introduction geben
+Kann einfach als Fliesstext rein
+
+Lessons learned (Selbstreflexion) ist durchaus ok
+Evaluieren Sensitivitaet bezueglich Designentscheidungen
+Liest sich doof, wenn die Ueberschriften zu 'ehrlich sind'
+In den Texten ist das dann aber kein Problem
+
+Pro/Contra Apache Cassandra ergibt Sinn, wenn Sie der einzige sind, der das macht
+
+Auf Paper stuetzen, die die Wahl von Cassandra belegen
+in Architecture schieben
+"Business relationships in Cassandra" evtl.
+Braucht gar keine related works in diesem Sinne
+
+Altes Bachelorprojekt (zentralisiert)
+nicht old bachelor's project nennen
+Man kann sich auf das vorherige BP beziehen
+Im Text kein Problem
+
+timeuuid in UI-Tabellen fuer Sortierung
+Indices
+
+Zurueckhalten mit 4. Ebene (warum)
+zwingt, viel zu schreiben
+Wertet punkt auf, da es ihm eine eigene Ueberschrift gibt
+2 Absaetze brauchen keine Ueberschrift
+Besserer Textfluss
+
+Schoenere Uebergaenge im Text (zwischen Kapiteln und Teilkapiteln)
+
+Our Data Structure nicht so gut, zu generisch ("our approach" nicht gut)
+
+Zahlen bis 12 werden ueblicherweise ausgeschrieben (use words)
+
+Schema statt scheme (scheme ist Plan oder Ansatz)
+Konsistent
+
+"Future work" keine schoene Ueberschrift
+
+=== Leo ===
+Einfluss von Cassandra etc. auf Blocking zwar beschreibbar, aber nicht zu viel
+Cassandra als gegeben ansehen, nicht evaluieren
+
+Bei null anfangen :D
+Pipeline hier einbauen?
+
+Pipeline von oben nach unten abarbeiten
+Blocking ausfuehrlicher beschreiben
+Danach (Duplikate beschreiben) wieder groeberer Blick
+
+Arbeit einordnen wichtig
+Aehnlichkeitsmasse & Blocking als Einleitung
+Related work (automatische Blocke; Techniken, die zur Verfuegung stehen)
+Pipeline bereits ausgegliedert
+1.3 als persoenliche Einleitung schreiben
+
+Technische Details & Umsetzung spaeter
+Struktur kann aehnlich zu der Arbeit von Lando & Matthias sein
+Ein wenig Dopplung (e.g. Precision & Recall) ist ok
+(Mehr Zeit => Recall erhoehen => Optimierung)
+
+Hauptsaechlich Precision & Recall optimieren, Laufzeit als 2. Ziel
+Laufzeit ist hier Prioritaet (im Vgl. zu M&L)
+Evtl zu Dritt schreiben (eher nicht?)
+
+Ueberschneidungen nicht so schlimm, aber minimieren
+(einer abstrakter, der andere detaillierter)
+
+=== Matthias & Lando ===
+Deduplication oder Duplicate Detection
+=> Duplicate Detection
+(nicht so wichtig)
+
+Use cases gut (soll/ kann auch in der Motivation drin stehen)
+Methodology eher unschoen => andere Erwartungen (wissenschaftl. Methode/ Empirismus kein Erklaerungsbedarf)
+
+Eigene Methode benennen evtl. (RoughlyEqualNumbers => ?)
+
+Similarity kann ein Kapitel sein
+Nicht unbedingt Unterkapitel
+Einfach tabellarisch machen => Titel, Beschreibung, URL (o.ae.)
+Einzelne Datenquellen nicht Attributieren
+Nicht auf jedes einzelne Attribut jeder Datenquelle eingehen
+
+Evaluation ist das Messen
+6.1 Arbeit einordnen => Outlook
+Nicht "classifying" oder "classification" verwenden (keien technischen Begriffe)
+=> einfach "conclusion & outlook"
+
+Hauptsaechlich Precision & Recall optimieren, Laufzeit als 2. Ziel
+Laufzeit messen
+
+=== Jonathan ===
+Nicht da, Zu spaet, aber Pech gehabt (3 Gute Gruende)
+Eine Menge generelles besprochen
+Koennen gerne nochmal Gliederung per eMail schicken
+Schon mit diesem Feedback integriert
+Sorry :(
