@@ -87,17 +87,17 @@
     to the functional approach of Scala and the rest of the example code.
 
     Also one of the purposes of the Ingestion and Curation projects was to enable
-    the execution of modern text mining, deduplication and parallel data analysis
+    the execution of modern text mining, deduplication and parallel data analysis techniques
     to the german business landscape. This means that some of the examples will be
     in German (but they will be translated if needed for understanding the technique).
 
-    \subsection{Usage Scenarios of Ingestion, Curation and [this paper]} % TODO add project name
+    \subsection{Usage Scenarios of Ingestion, Curation and [this paper]} % TODO add project name GraphXplore
     The process of classic risk analysis which is still majorly employed in today's banks is mostly
     a model-oriented process that heavily relies on speculation or predictions.\\
     The techniques that Ingestion, Curation and this paper (TODO: project name?)
     offer are universally usable to analyze huge amounts of structured or unstructured data
     in the form of WikiData, JSON, CSV or similar data as well as newspaper articles,
-    messages (eMail, instant or otherwise).\\
+    messages (eMail, instant or otherwise) or similar data sources.\\
     The results of this can either be viewed as a graph or a relational model
     using the conversion algorithms briefly discussed later in this paper. % TODO link subsection
     Because [this system] has automatic as well as user-driven processes  % TODO add project name
@@ -105,10 +105,10 @@
     of all the data in the data lake, it may be effectively deployed in a bank
     or similar institution as a data collection, curation and analysis software stack.\\
     It is meant to be heavily extensible and allows the simple integration of new data sources % TODO really possible in the end?
-    as well as algorithms and data structures in general. The pipeline itself is generally very modular
-    and is composed of many stand-alone Spark jobs that mostly read and write from/ to the Cassandra database.
+    as well as algorithms and data structures in general. The pipeline itself is very modular
+    and is composed of many stand-alone Spark jobs that mostly read and write from or to the Cassandra database.
     For more information on this technique, see [Nils' paper on Cassandra]. % TODO link
-    
+
     \subsection{Pattern Analysis vs. PageRank}
     TODO
 
@@ -119,6 +119,30 @@
     \subsection{Graph encoding for column family storage}
     \subsection{The $subject$ data structure}
     \subsection{A versioning scheme that stands the test of time}
+    Versioning is needed for the automatic system that includes various pipelines
+    that write to lots of different tables in Cassandra during their runtime,
+    but at the end it is expected that all data will flow back into the central
+    'data lake' that is the $subject$ table, described earlier in this chapter.
+    This means that fully automated processes may and will write millions of
+    data entries to the datalake at an hourly basis (or even more frequent),
+    so if any breaking changes are introduced by these, they need to be rerolled quickly.
+    This means that each version isn't saved as a diff like in version control systems
+    (e.g. git), but rather every single version has a copy of all the attributes,
+    a timestamp and the name and version of the program that modified it.
+    As our whole pipeline is made up of individual small Spark jobs that write
+    mostly into their own Cassandra tables, the error in the data can be quickly
+    located and traced to the corresponding source code.
+
+    Because our data domain included events, attributes and relations that had
+    temporal validity parameters attached to them, we had to realize a versioning
+    scheme that was compatible with the column-family oriented storage of Cassandra.
+    As everything is distributed across the cluster here, a diff-oriented versioning
+    would be hard to keep up, so our team decided on a deeply structured deep copy
+    backup system for our versions.
+
+    The version data structures are stores for each attribute and each individual
+    key of the subject entries, which makes restoring individual columns or single
+    data entries efficient and easily parallelizable.
 
   \section{Architecture (opt.)}
     \subsection{Job and Data Management}
