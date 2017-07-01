@@ -17,25 +17,25 @@
 
 % Listing color definitions
 \definecolor{numbercolor}{rgb}{0.5,0.5,0.5}
-\definecolor{keywordcolor}{rgb}{0,0.5,0.6}
+\definecolor{keywordcolor}{rgb}{0.7,0.4,0}
 \definecolor{commentcolor}{rgb}{0,0.6,0}
 \definecolor{stringcolor}{rgb}{0.58,0,0.82}
 
 % Scala code snippet styling
 \lstdefinestyle{scalaStyle}{
-  frame=tb,
   language=scala,
   aboveskip=3mm,
   belowskip=3mm,
   showstringspaces=false,
   columns=flexible,
   basicstyle={\small\ttfamily},
-  numbers=none,
-  numberstyle=\tiny\color{numbercolor},
+  numbers=left,
+  numbersep=1pt,
+  numberstyle=\small\ttfamily\color{numbercolor},
   keywordstyle=\color{keywordcolor},
   commentstyle=\color{commentcolor},
   stringstyle=\color{stringcolor},
-  frame=single,
+  frame=none,
   breaklines=true,
   breakatwhitespace=true,
   tabsize=2
@@ -147,7 +147,7 @@
     It contains all the final businesses, industry sectors, countries or persons
     that are the result of the computations in the Ingestion project.\\
     This is what it looks like in Scala:
-    \begin{lstlisting}[style=scalaStyle]
+    \begin{lstlisting}[style=scalaStyle,caption=Subject]
     case class Subject(
     	var id: UUID = UUID.randomUUID(),
     	var master: UUID,
