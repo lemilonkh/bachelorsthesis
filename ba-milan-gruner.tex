@@ -112,12 +112,11 @@
     \subsection{Pattern Analysis vs. PageRank}
     TODO
 
-    \subsection{Used techniques and assumptions}
-    TODO
-
   \section{Data structures for business entities}
-    \subsection{Graph encoding for column family storage}
     \subsection{The $subject$ data structure}
+    The central data structure that exists inside the datalake is called $subject$.
+    It contains all the final businesses, industry sectors, countries or persons
+    that are the result of the computations in the Ingestion project.\\
 
     \subsection{A versioning scheme that stands the test of time}
     Versioning is needed for the automatic system that includes various pipelines
@@ -145,18 +144,10 @@
     key of the subject entries, which makes restoring individual columns or single
     data entries efficient and easily parallelizable.
 
+  \section{Using Apache Spark and GraphX for Graph Analysis}
+    \subsubsection{Motivation: Why Spark, Cassandra and GraphX?}
     \subsection{Transforming $Subjects$ into GraphX compatible relation data}
-
-  \section{Architecture (opt.)}
-    \subsection{Job and Data Management}
-      \subsubsection{Modularizing Spark jobs}
-      \subsubsection{Coordinating Spark jobs from NodeJS}
-      \subsubsection{Managing Cassandra tables from NodeJS}
-      \subsubsection{Data flow using column family storage}
-    \subsection{Using Apache Spark and Cassandra for Graph Analysis}
-      \subsubsection{Motivation: Why Spark, Cassandra and GraphX?}
-      \subsubsection{Writing efficient Spark GraphX code}
-      \subsubsection{Optimizing Cassandra data structures for Graph Processing}
+    \subsubsection{Writing efficient Spark GraphX code}
     \pagebreak
 
   \section{Graph Summarization}
