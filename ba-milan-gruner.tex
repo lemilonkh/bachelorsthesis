@@ -11,6 +11,35 @@
 \usepackage{textcomp,amsmath}     % Mathezeichen etc.
 \usepackage{graphicx}             % Graphiken einbinden
 \usepackage{hyperref}             % Hyperlinks fuer TOC, Glossar, etc.
+%\usepackage{beramono}             % Font for code listings (?)
+\usepackage{listings}             % Code snippets
+\usepackage{xcolor}               % Custom colors in code listings
+
+% Listing color definitions
+\definecolor{numbercolor}{rgb}{0.5,0.5,0.5}
+\definecolor{keywordcolor}{rgb}{0,0.5,0.6}
+\definecolor{commentcolor}{rgb}{0,0.6,0}
+\definecolor{stringcolor}{rgb}{0.58,0,0.82}
+
+% Scala code snippet styling
+\lstdefinestyle{scalaStyle}{
+  frame=tb,
+  language=scala,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{numbercolor},
+  keywordstyle=\color{keywordcolor},
+  commentstyle=\color{commentcolor},
+  stringstyle=\color{stringcolor},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2
+}
 
 % bibtex
 \usepackage{url}
@@ -117,6 +146,26 @@
     The central data structure that exists inside the datalake is called $subject$.
     It contains all the final businesses, industry sectors, countries or persons
     that are the result of the computations in the Ingestion project.\\
+    This is what it looks like in Scala:
+    \begin{lstlisting}[style=scalaStyle]
+    case class Subject(
+    	var id: UUID = UUID.randomUUID(),
+    	var master: UUID,
+    	var datasource: String,
+    	var name: Option[String] = None,
+    	var aliases: List[String] = Nil,
+    	var category: Option[String] = None,
+    	var properties: Map[String, List[String]] = Map(),
+    	var relations: Map[UUID, Map[String, String]] = Map(),
+
+    	var master_history: List[Version] = Nil,
+    	var name_history: List[Version] = Nil,
+    	var aliases_history: List[Version] = Nil,
+    	var category_history: List[Version] = Nil,
+    	var properties_history: Map[String, List[Version]] = Map(),
+    	var relations_history: Map[UUID, Map[String, List[Version]]] = Map()
+    )
+    \end{lstlisting}
 
     \subsection{A versioning scheme that stands the test of time}
     Versioning is needed for the automatic system that includes various pipelines
@@ -146,6 +195,7 @@
 
   \section{Using Apache Spark and GraphX for Graph Analysis}
     \subsection{Motivation: Why Spark, Cassandra and GraphX?}
+    \subsection{The Spark GraphX vertex and edge data structures}
     \subsection{Transforming $Subjects$ into GraphX compatible relation data}
     \subsection{Writing efficient Spark GraphX code}
     \pagebreak
