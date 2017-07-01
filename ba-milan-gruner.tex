@@ -121,7 +121,7 @@
     to the german business landscape. This means that some of the examples will be
     in German (but they will be translated if needed for understanding the technique).
 
-    \subsection{Usage Scenarios of Ingestion, Curation and GraphXplore} % TODO add project name GraphXplore
+    \subsection{Usage Scenarios of Ingestion, Curation and GraphXplore}
     The process of classic risk analysis which is still majorly employed in today's banks is mostly
     a model-oriented process that heavily relies on speculation or predictions.\\
     The techniques that Ingestion, Curation and this paper (TODO: project name?)
@@ -130,7 +130,7 @@
     messages (eMail, instant or otherwise) or similar data sources.\\
     The results of this can either be viewed as a graph or a relational model
     using the conversion algorithms briefly discussed later in this paper. % TODO link subsection
-    Because [this system] has automatic as well as user-driven processes  % TODO add project name
+    Because GraphXplore has automatic as well as user-driven processes
     that control the flow, categorization and importance grading % TODO better word
     of all the data in the data lake, it may be effectively deployed in a bank
     or similar institution as a data collection, curation and analysis software stack.\\
@@ -193,6 +193,18 @@
     The version data structures are stores for each attribute and each individual
     key of the subject entries, which makes restoring individual columns or single
     data entries efficient and easily parallelizable.
+
+    The version data structure that was used is structured like this:
+    \begin{lstlisting}[style=scalaStyle,caption=Version]
+    case class Version(
+    	version: UUID = UUIDs.timeBased(),
+    	var program: String,
+    	var value: List[String] = Nil,
+    	var validity: Map[String, String] = Map(),
+    	var datasources: List[String] = Nil,
+    	var timestamp: Date = new Date()
+    )
+    \end{lstlisting}
 
   \section{Using Apache Spark and GraphX for Graph Analysis}
   This chapter will briefly discuss the reasons for using Spark's GraphX API
