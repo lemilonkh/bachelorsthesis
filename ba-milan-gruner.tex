@@ -130,7 +130,7 @@
     messages (eMail, instant or otherwise) or similar data sources.\\
     The results of this can either be viewed as a graph or a relational model
     using the conversion algorithms briefly discussed later in this paper. % TODO link subsection
-    Because GraphXplore has automatic as well as user-driven processes
+    Because this project has automatic as well as user-driven processes
     that control the flow, categorization and importance grading % TODO better word
     of all the data in the data lake, it may be effectively deployed in a bank
     or similar institution as a data collection, curation and analysis software stack.\\
@@ -167,6 +167,36 @@
     	var relations_history: Map[UUID, Map[String, List[Version]]] = Map()
     )
     \end{lstlisting}
+
+    The first three attributes ($id$, $master$, $datasource$) constitute the
+    primary key in the Cassandra databases.
+    The partitioning key that is used to decide on which Cassandra instance to store
+    a given $Subject$ entry is the $master$ ID, which makes sure that a master node
+    and all its data source slave nodes are stored on the same machine.
+    $id$ and $datasource$ are used as clustering keys, which control the sorting
+    inside the data partitions produced by database queries. They are also easily
+    queryable when specific IDs or data source entries for a given master ID are
+    needed.
+
+    When loading Cassandra data into a Spark job, simple fields (e.g. Strings)
+    need to be wrapped in an Option in case that the field contains no value
+    (otherwise there would be an error), which isn't necessary for the fields
+    containing Maps or Lists, which would just contain an empty data structure
+    in that case.
+
+    The $properties$ field contains all the extracted data from the various
+    data source extraction and normalization steps in the Ingestion pipeline.
+    It is structured in a way to make storing arbitrary data possible, by allowing
+    to store a List of Strings for each property key. This way, a list of
+    eMail addresses can be stored as well as a single postal code and they can
+    be treated the same way.
+
+    The $relations$ field is structured in a two-dimensional map. The first level
+    is addressed by the target $subject$ ID, while the second level's keys are the
+    specific relation type. The value that is returned when the field is queried
+    by the target ID and relation type is the relation attribute, which is mostly
+    used to store a confidence measure (a value from 0 to 1) or the count of the
+    relation type between the current $subject$ and the target.
 
     \subsection{A versioning scheme that stands the test of time}
     Versioning is needed for the automatic system that includes various pipelines
