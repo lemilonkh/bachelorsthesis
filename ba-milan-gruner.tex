@@ -236,6 +236,19 @@
     )
     \end{lstlisting}
 
+    It is stored inside the collections of the $history$ fields of the $Subject$
+    data structure and contains useful meta information for restoring old versions,
+    modeling temporal validity (attributes only being valid for a certain timespan)
+    or filtering out data from certain data sources. They also contain the Spark
+    program's name that created the relevant changes and the time they were made.
+
+    Additionally, the $version$ table contains a list of all changes to the datalake,
+    making it traceable which programs were ran at what time, which table they wrote
+    to and what data sources they processed. Using this, the Curation interface
+    can display the annotated version list, and run Spark jobs that restore the
+    whole data lake to a previous version or compute the changes that a version
+    made in the $subject$ table.
+
   \section{Using Apache Spark and GraphX for Graph Analysis}
   This chapter will briefly discuss the reasons for using Spark's GraphX API
   alongside the Apache Cassandra database. Then the transformations that are
