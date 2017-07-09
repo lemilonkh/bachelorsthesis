@@ -107,10 +107,11 @@
     All of the experiments contained in this paper were conducted using either
     the Curation interface, the Apache Zeppelin interactive web shell or the Spark shell.
 
-    Most of the topics in this paper deal with graph-related topics, so the Spark GraphX framework
+    \subsection{Technologies used in this paper}
+    Most of the topics in this paper deal with graph-related topics, so the GraphFrames framework
     (in Scala) will mostly be used to describe the algorithms that were employed,
     but it can be freely seen as functional pseudo code and adapted to other popular
-    graph processing frameworks (such as Giraph etc.) % TODO more examples
+    graph processing frameworks (such as GraphX, Giraph etc.) % TODO more examples
     For UI-related or user-oriented algorithms, JavaScript (or JSX, so partly using React/ Redux etc.)
     is the listing language, as visual problems are more easily expressed in this
     tree-oriented but still functional style (and also because it's used in Curation). % TODO remove?
@@ -139,9 +140,6 @@
     as well as algorithms and data structures in general. The pipeline itself is very modular
     and is composed of many stand-alone Spark jobs that mostly read and write from or to the Cassandra database.
     For more information on this technique, see [Nils' paper on Cassandra]. % TODO link
-
-    \subsection{Pattern Analysis vs. PageRank}
-    TODO
 
   \section{Data structures for business entities}
     \subsection{The $Subject$ data structure}
@@ -334,7 +332,7 @@
 
   Before the ConnectedComponets algorithm is run, all ownership-related company
   relations are extracted from the $Subject$ graph. This is done by whitelisting
-  all relations that concern this particular subgraph, e.g. "ownedBy".
+  all relations (in $ownershipRelations$) that concern this particular subgraph, e.g. "ownedBy".
   Then, after executing the search, all entries are grouped by the ID of the
   associated component and their names and UUIDs are saved to Cassandra
   as an entry of the $graphs$ table. The following code snippet describes how
