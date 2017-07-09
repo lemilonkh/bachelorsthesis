@@ -315,8 +315,7 @@
   as an entry of the $graphs$ table. The following code snippet describes how
   this process is expressed using GraphFrames:
 
-  \begin{lstlisting}[style=scalaStyle,caption=processGraph in $CompanyGroupExtractor$]
-  // pre-filter for ownership-related edges
+  \begin{lstlisting}[style=scalaStyle,caption=Company Group Extraction]
   val ownershipEdges = graph.edges.filter((edge) =>
     ownershipRelations.contains(edge.getAs[String]("relationship")))
   val ownershipGraph = GraphFrame(graph.vertices, ownershipEdges)
