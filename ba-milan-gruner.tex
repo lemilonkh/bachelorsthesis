@@ -265,7 +265,9 @@
     these computations without much hassle (like serializing to CSV or Parquet files would involve).
     It is also well integrated into the Spark API and can take care of complex nested
     data structures like e.g. the properties and relations attributes of the $Subject$
-    case class. GraphX is used simply because it enables the description of the
+    case class.
+
+    GraphX is used simply because it enables the description of the
     Graph algorithms discussed in this paper in an abstract and terse fashion.
     It also acts as a way to operate on compress graph information without always
     compressing and restoring the relevant data in every stage of the respective Spark job.
