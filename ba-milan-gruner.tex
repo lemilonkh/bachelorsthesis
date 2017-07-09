@@ -248,14 +248,14 @@
     whole data lake to a previous version or compute the changes that a version
     made in the $subject$ table.
 
-  \section{Using Apache Spark and GraphX for Graph Analysis}
+  \section{Using Apache Spark and GraphFrames for Graph Analysis}
   This chapter will briefly discuss the reasons for using Spark's GraphX API
   alongside the Apache Cassandra database. Then the transformations that are
-  necessary to extract GraphX-compatible data from the data lake will be detailed.
+  necessary to extract GraphFrames-compatible data from the data lake will be detailed.
   The following chapters will build on the techniques described in this one, so
   that only the relevant graph processing sections need to be shown later on.
 
-    \subsection{Why Spark, Cassandra and GraphX?}
+    \subsection{Why Spark, Cassandra and GraphFrames?}
     The subject table contains millions of entries. In order to efficiently extract
     a graph and calculate the results of complex graph algorithms, a parallel processing
     framework like Apache Spark is a really important measure to take into consideration when runtimes
@@ -266,49 +266,9 @@
     data structures like e.g. the properties and relations attributes of the $Subject$
     case class.
 
-    GraphX is used simply because it enables the description of the
-    Graph algorithms discussed in this paper in an abstract and terse fashion.
-    It also acts as a way to operate on compress graph information without always
-    compressing and restoring the relevant data in every stage of the respective Spark job.
-    Using the Pregel operator contained in GraphX, iterative graph algorithms can be broken
-    down into parallelizable messages that are sent along the edges of the graph.
-
     TODO continue
 
     \subsection{Transforming $Subjects$ into vertex and relation data}
-    For GraphX, node IDs always have to be ints or longs in order to tightly pack
-    the node and relation data for efficient parallel processing. This however
-    imposes some limitations on the data that is to be imported into the system.
-    As all of our vertices are instances of the $Subject$ case class, they are
-    referenced by their respective UUIDs, which contain 128 Bit of information.
-    In order to store this in a long, either the 64 most significant bits (MSB)
-    have to be taken, which might lead to collisions when two UUIDs collide in their
-    first halves, or the hashCode of the UUIDs has to be used to take them into full consideration.
-
-    The latter approach also works for strings and pretty much any data type that
-    can be expressed in Scala, so it is the one which was selected for the transformation.
-
-    Because of the irreversible nature of both methods of ID compression, a mapping
-    from new ID to the old UUID needs to be created and joined with the calculated
-    data in each step where the old UUIDs are needed (e.g. when querying additional
-    information about the subjets or when exporting the graph data).\\
-    Because GraphX lets the vertex and edge attributes have any type and structure,
-    it makes sense to extract the relevant subject data when querying it in the beginning
-    of a Spark job, to keep this joining down to a minimum.
-
-    Another step that needs to be executed is the extraction of the relevant relations
-    from the corresponding attribute in the $Subject$ data structure. This involves
-    flattening a two-dimensional map (a 'map of maps') into many tuples of the two
-    map keys, relation target UUID and type, and the relation attribute. This then needs
-    to be augmented by the source UUID in order to make it useful for GraphX.
-    All UUIDs need to be converted into longs along the way so that the edges
-    can still be interpreted when they are processed on the worker nodes.
-
-    The $transformToGraph$ function from $TODO$ takes care of this process:
-    $TODO$ Listing
-
-    \subsection{The Pregel operator in GraphX and its uses}
-    \subsection{Writing efficient Spark GraphX code}
     \pagebreak
 
   \section{Finding company groups in the business graph}
