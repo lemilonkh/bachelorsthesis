@@ -268,7 +268,36 @@
 
     TODO continue
 
-    \subsection{Transforming $Subjects$ into vertex and relation data}
+    \subsection{Constructing a GraphFrame from subject data}
+    The case class RDDs that are queried from Cassandra are transformed into vertex
+    and relation data using the default Spark API.
+
+    The $extractGraph$ function from $GraphExtractor$ takes care of this process:
+
+    \begin{lstlisting}[style=scalaStyle,caption=extractGraph in $GraphExtractor$]
+    def extractGraph(subjects: RDD[Subject], sc: SparkContext): GraphFrame = {
+  		val spark = SparkSession
+  			.builder()
+  			.appName(appName)
+  			.config(sc.getConf)
+  			.getOrCreate()
+  		import spark.implicits._
+
+  		val subjectVertices = subjects
+  			.map(subject => (subject.id.toString, subject.name))
+  			.toDF("id", "name")
+  		val subjectRelations = subjects.flatMap(subject => {
+  			subject.masterRelations.flatMap { case (id, relTypes) =>
+  				relTypes.map { case (relType, value) =>
+  					(subject.id.toString, id.toString, relType, value)
+  				}
+  			}
+  		}).toDF("src", "dst", "relationship", "value")
+
+  		GraphFrame(subjectVertices, subjectRelations)
+  	}
+    \end{lstlisting}
+
     \pagebreak
 
   \section{Finding company groups in the business graph}
