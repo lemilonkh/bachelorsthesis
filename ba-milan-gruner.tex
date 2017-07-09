@@ -315,9 +315,9 @@
 
   \begin{lstlisting}[style=scalaStyle,caption=processGraph in $CompanyGroupExtractor$]
   // pre-filter for ownership-related edges
-	val ownershipEdges = graph.edges.filter((edge) =>
-		ownershipRelations.contains(edge.getAs[String]("relationship")))
-	val ownershipGraph = GraphFrame(graph.vertices, ownershipEdges)
+  val ownershipEdges = graph.edges.filter((edge) =>
+    ownershipRelations.contains(edge.getAs[String]("relationship")))
+  val ownershipGraph = GraphFrame(graph.vertices, ownershipEdges)
 
   ownershipGraph.connectedComponents.run()
 		.select("id", "component", "name")
