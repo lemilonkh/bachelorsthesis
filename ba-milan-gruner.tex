@@ -327,8 +327,8 @@
   As a first experiment with real-world applications, company group extraction
   was a good starting algorithm that could be adapted from the connected component
   tagging which was already present in the GraphFrames API.
-  Here, all businesses that are connected via ownership-related were considered
-  as a company group.
+  Here, all businesses that were connected via "owns" or "owned by"
+  relations were considered as a company group.
 
   Before the ConnectedComponets algorithm is run, all ownership-related company
   relations are extracted from the $Subject$ graph. This is done by whitelisting
