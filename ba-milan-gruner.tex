@@ -131,15 +131,14 @@
     in the form of WikiData, JSON, CSV or similar data as well as newspaper articles,
     messages (eMail, instant or otherwise) or similar data sources.\\
     The results of this can either be viewed as a graph or a relational model
-    using the conversion algorithms briefly discussed later in this paper. % TODO link subsection
-    Because this project has automatic as well as user-driven processes
-    that control the flow, categorization and importance grading % TODO better word
+    using the conversion algorithms briefly discussed later in this paper.
+    Because this project consists of automatic processes
+    that control the flow, categorization and extraction
     of all the data in the data lake, it may be effectively deployed in a bank
     or similar institution as a data collection, curation and analysis software stack.\\
     It is meant to be heavily extensible and allows the simple integration of new data sources % TODO really possible in the end?
     as well as algorithms and data structures in general. The pipeline itself is very modular
     and is composed of many stand-alone Spark jobs that mostly read and write from or to the Cassandra database.
-    For more information on this technique, see [Nils' paper on Cassandra]. % TODO link
 
   \section{Data structures for business entities}
     \subsection{The $Subject$ data structure}
