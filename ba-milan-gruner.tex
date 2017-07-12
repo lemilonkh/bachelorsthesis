@@ -420,11 +420,23 @@
   relations present in the graph.
 
   \subsection{Finding connections between relevant companies}
+  The companies extracted in the previous section are a small subset of the actual
+  graph. This means that most of them won't share any relations, resulting in a
+  mostly unconnected graph. This of course isn't desirable, so the graph needs to
+  be enriched by additional edges.
+
+  These edges however won't exist in the original graph, so they have to be generated
+  by searching for paths between the extracted nodes. This can be done by using
+  GraphFrames' breadth-first search implementation, which is able to use arbitrary
+  attribute selectors for the source and target nodes.
+
+  \subsection{Controlling which companies are extracted}
 
   \pagebreak
 
   \section{Motif Search}
     \subsection{Pattern types and their applications}
+    \subsection{Motif Search using GraphFrames}
     \subsection{Related work}
     \pagebreak
 
