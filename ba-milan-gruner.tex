@@ -392,7 +392,8 @@
   Here, the only parameter that has to be controlled is the tolerance threshold,
   which is independent of the input graph because it only depends on the accuracy that is desired.
 
-  After the PageRank algorithm was run, the results still have to be interpreted.
+  After the PageRank algorithm was run, the results still have to be interpreted,
+  which means that the nodes have to be separated into important and unimportant groups.
   This can be done using thresholding techniques and can be parallelized
   over the connected components of the business graph.
 
@@ -401,13 +402,15 @@
   attribute in the component and dividing every node's attribute by it.
   Then, a threshold value has to be picked for the component. This can either be done
   using an absolute threshold that has to be determined for the whole graph, or
-  using an adaptive thresholding technique like Otsu's method, which is normally
-  used for image thresholding but can be applied here as well.
+  using an adaptive thresholding technique like Otsu's method \cite{otsu1979threshold},
+  which is normally used for image thresholding but can be applied here as well.
   It works by creating a histogram of the absolute probabilities of
   each $pagerank$ value present in the component, which are grouped into bins.
   It then tries to separate the values into two classes and minimize the variance inside these classes.
+  In the end, a threshold is picked that can be used to decide whether or not to
+  include a node in the important group.
 
-  \subsection{Finding important connections}
+  \subsection{Finding connections between relevant companies}
   \pagebreak
 
   \section{Motif Search}
