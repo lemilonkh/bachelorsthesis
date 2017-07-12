@@ -367,27 +367,31 @@
   Oracle America, Hyperion Solutions, Sun Microsystems, Micros Systems, Oracle Financial Services Software, Oracle, PeopleSoft, Acme Packet, Art Technology Group
 
   The corresponding IDs are also stored alongside the names and the graph type (here: "CompanyGroup"). This makes it easy to analyze
-  the results without alwais joining all subject's names and IDs to this dataset. It also facilitates displaying
+  the results without always joining all subject's names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
   \subsection{Using PageRank to find relevant companies}
   The PageRank algorithm by Page et al. \cite{ilprints422} was originally intended
-  to compute the relative likelyhood that a user might arrive at a web page
+  to compute the relative likelihood that a user might arrive at a web page
   in a network of interconnected documents. It can however be adapted to most
   graph structures and also finds an application when dealing with business graphs,
   as the navigation between businesses over their outgoing relations is quite
   alike to the navigation between web pages over their hyper links.
-  Therefore, the vertex output ("pagerank") of the PageRank algorithm can be interpreted as the
+  Therefore, the vertex output of the PageRank algorithm can be interpreted as the
   relative likelihood that a user might arrive at a certain business when freely
   navigating the graph, starting at any connected node.
-  The relation output ("weight") can be seen as the probability that the user
+  The relation output can be seen as the probability that the user
   travels along this relation to the next company.
 
   Fortunately, PageRank is already implemented in the GraphFrames library.
   There are two different possibilities to call it on a given graph. It can either
   be executed for a given number of iterations, or it can be run until convergence
-  is reached with a tolerance parameter to keep the algorithm from running endlessly.
-
+  is reached within a certain tolerance interval to keep the algorithm from running endlessly.
+  Experience has shown that the former is quite a lot faster, but the number of iterations
+  has to be manually adapted to the graph size and its degree of interconnectedness.
+  Otherwise the results differ too much from the latter implementation.
+  Here, the only parameter that has to be controlled is the tolerance threshold,
+  which is independent of the input graph because it only depends on the accuracy that is desired.
 
 
   \subsection{Finding important connections }
