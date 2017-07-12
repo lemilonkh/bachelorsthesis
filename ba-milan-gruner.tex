@@ -369,7 +369,7 @@
   the results without always joining all subject's names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
-  \subsection{Using PageRank to find relevant companies}
+  \subsection{Graph Simplification using PageRank and Thresholding}
   The PageRank algorithm by Page et al. \cite{pagerank1999} was originally intended
   to compute the likelihood that a user might arrive at a web page
   in a network of interconnected documents. It can however be adapted to most
@@ -407,9 +407,15 @@
 
   It works by creating a histogram of the absolute frequency of
   each $pagerank$ value present in the component, which are grouped into bins.
-  It then tries to separate the values into two classes and minimize the variance inside these classes.\\
+  Then, the values are iteratively separated into two classes while trying to
+  minimize the variance inside these classes.\\
   In the end, a threshold is picked that can be used to decide whether or not to
   include a node in the important group based on its $pagerank$ value.
+
+  The same can be done for the relations in the current connected component.
+  By only showing the edges that the user is likely to use, the graph can be greatly
+  simplified. This makes use of the weights the PageRank algorithm assigns to the
+  relations present in the graph.
 
   \subsection{Finding connections between relevant companies}
   \pagebreak
