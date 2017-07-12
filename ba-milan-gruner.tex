@@ -404,11 +404,12 @@
   using an absolute threshold that has to be determined for the whole graph, or
   using an adaptive thresholding technique like Otsu's method \cite{otsu1979threshold},
   which is normally used for image thresholding but can be applied here as well.
-  It works by creating a histogram of the absolute probabilities of
+
+  It works by creating a histogram of the absolute frequency of
   each $pagerank$ value present in the component, which are grouped into bins.
-  It then tries to separate the values into two classes and minimize the variance inside these classes.
+  It then tries to separate the values into two classes and minimize the variance inside these classes.\\
   In the end, a threshold is picked that can be used to decide whether or not to
-  include a node in the important group.
+  include a node in the important group based on its $pagerank$ value.
 
   \subsection{Finding connections between relevant companies}
   \pagebreak
