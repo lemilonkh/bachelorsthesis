@@ -368,8 +368,9 @@
   The corresponding IDs are also stored alongside the names and the graph type (here: "CompanyGroup"). This makes it easy to analyze
   the results without always joining all subject's names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
+  \pagebreak
 
-  \subsection{Graph Simplification using PageRank and Thresholding}
+  \section{Graph Simplification using PageRank and Thresholding}
   The PageRank algorithm by Page et al. \cite{pagerank1999} was originally intended
   to compute the likelihood that a user might arrive at a web page
   in a network of interconnected documents. It can however be adapted to most
@@ -382,6 +383,7 @@
   The relation output can be seen as the likelihood that the user
   travels along this relation to the next company.
 
+  \subsection{Using PageRank to find relevant companies}
   Fortunately, PageRank is already implemented in the GraphFrames library.
   There are two different possibilities to call it on a given graph: it can either
   be executed for a given number of iterations, or it can be run until convergence
@@ -392,8 +394,8 @@
   Here, the only parameter that has to be controlled is the tolerance threshold,
   which is independent of the input graph because it only depends on the accuracy that is desired.
 
-  After the PageRank algorithm was run, the results still have to be interpreted,
-  which means that the nodes have to be separated into important and unimportant groups.
+  After the PageRank algorithm is executed, the results still have to be interpreted,
+  meaning that the nodes have to be separated into important and unimportant groups.
   This can be done using thresholding techniques and can be parallelized
   over the connected components of the business graph.
 
@@ -418,6 +420,7 @@
   relations present in the graph.
 
   \subsection{Finding connections between relevant companies}
+
   \pagebreak
 
   \section{Motif Search}
