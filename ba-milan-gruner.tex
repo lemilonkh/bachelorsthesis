@@ -316,7 +316,6 @@
     calls, the algorithm gets rid off all of the nested structure of the $relations$
     attribute, adding the source node to every given triple of the target, relation type, and relation value.
     It then names them in the scheme that the $GraphFrame$ constructor expects.
-
     \pagebreak
 
   \section{Approaches for subgraph extraction}
@@ -372,19 +371,19 @@
 
   \subsection{Using PageRank to find relevant companies}
   The PageRank algorithm by Page et al. \cite{ilprints422} was originally intended
-  to compute the relative likelihood that a user might arrive at a web page
+  to compute the likelihood that a user might arrive at a web page
   in a network of interconnected documents. It can however be adapted to most
   graph structures and also finds an application when dealing with business graphs,
   as the navigation between businesses over their outgoing relations is quite
   alike to the navigation between web pages over their hyper links.
-  Therefore, the vertex output of the PageRank algorithm can be interpreted as the
-  relative likelihood that a user might arrive at a certain business when freely
+  Therefore, the vertex output of the algorithm can be interpreted as the
+  probability that a user might arrive at a certain business when freely
   navigating the graph, starting at any connected node.
-  The relation output can be seen as the probability that the user
+  The relation output can be seen as the likelihood that the user
   travels along this relation to the next company.
 
   Fortunately, PageRank is already implemented in the GraphFrames library.
-  There are two different possibilities to call it on a given graph. It can either
+  There are two different possibilities to call it on a given graph: it can either
   be executed for a given number of iterations, or it can be run until convergence
   is reached within a certain tolerance interval to keep the algorithm from running endlessly.
   Experience has shown that the former is quite a lot faster, but the number of iterations
@@ -393,8 +392,7 @@
   Here, the only parameter that has to be controlled is the tolerance threshold,
   which is independent of the input graph because it only depends on the accuracy that is desired.
 
-
-  \subsection{Finding important connections }
+  \subsection{Finding important connections}
   \pagebreak
 
   \section{Motif Search}
