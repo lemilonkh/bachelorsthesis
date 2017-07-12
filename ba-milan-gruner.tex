@@ -81,6 +81,7 @@
 
   \clearpage
   \tableofcontents
+  \pagebreak
   %\listoffigures
   %\listoftables
 
@@ -139,6 +140,7 @@
     It is meant to be heavily extensible and allows the simple integration of new data sources % TODO really possible in the end?
     as well as algorithms and data structures in general. The pipeline itself is very modular
     and is composed of many stand-alone Spark jobs that mostly read and write from or to the Cassandra database.
+    \pagebreak
 
   \section{Data structures for business entities}
     \subsection{The $Subject$ data structure}
@@ -246,6 +248,7 @@
     can display the annotated version list, and run Spark jobs that restore the
     whole data lake to a previous version or compute the changes that a version
     made in the $subject$ table.
+    \pagebreak
 
   \section{Using Apache Spark and GraphFrames for Graph Analysis}
   This chapter will briefly discuss the reasons for using Spark's GraphX API
@@ -331,7 +334,8 @@
 
   Before the ConnectedComponets algorithm is run, all ownership-related company
   relations are extracted from the $Subject$ graph. This is done by whitelisting
-  all relations (in $ownershipRelations$) that concern this particular subgraph, e.g. "ownedBy".
+  all relations (in $ownershipRelations$) that concern this particular subgraph,
+  e.g. "owns" and "ownedBy".
   Then, after executing the search, all entries are grouped by the ID of the
   associated component and their names and UUIDs are saved to Cassandra
   as an entry of the $graphs$ table. The following code snippet describes how
@@ -366,15 +370,30 @@
   the results without alwais joining all subject's names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
-  \section{Graph Summarization}
-    \subsection{What users actually want to see}
-    \subsection{Compressing graph information to the bare minimum}
-    \subsection{Presenting graph data appealingly}
-    \subsection{Related work}
-    \pagebreak
+  \subsection{Using PageRank to find relevant companies}
+  The PageRank algorithm by Page et al. \cite{ilprints422} was originally intended
+  to compute the relative likelyhood that a user might arrive at a web page
+  in a network of interconnected documents. It can however be adapted to most
+  graph structures and also finds an application when dealing with business graphs,
+  as the navigation between businesses over their outgoing relations is quite
+  alike to the navigation between web pages over their hyper links.
+  Therefore, the vertex output ("pagerank") of the PageRank algorithm can be interpreted as the
+  relative likelihood that a user might arrive at a certain business when freely
+  navigating the graph, starting at any connected node.
+  The relation output ("weight") can be seen as the probability that the user
+  travels along this relation to the next company.
 
-  \section{Pattern Search}
-    \subsection{Discerning patterns from randomness}
+  Fortunately, PageRank is already implemented in the GraphFrames library.
+  There are two different possibilities to call it on a given graph. It can either
+  be executed for a given number of iterations, or it can be run until convergence
+  is reached with a tolerance parameter to keep the algorithm from running endlessly.
+
+
+
+  \subsection{Finding important connections }
+  \pagebreak
+
+  \section{Motif Search}
     \subsection{Pattern types and their applications}
     \subsection{Related work}
     \pagebreak
