@@ -251,7 +251,7 @@
     \pagebreak
 
   \section{Using Apache Spark and GraphFrames for Graph Analysis}
-  This chapter will briefly discuss the reasons for using Spark's GraphX API
+  This chapter will briefly discuss the reasons for using Apache Spark and DataStax GraphFrames
   alongside the Apache Cassandra database. Then the transformations that are
   necessary to extract GraphFrames-compatible data from the data lake will be detailed.
   The following chapters will build on the techniques described in this one, so
@@ -266,7 +266,15 @@
     these computations without much hassle (like serializing to CSV or Parquet files would involve).
     It is also well integrated into the Spark API and can take care of complex nested
     data structures like e.g. the properties and relations attributes of the $Subject$
-    case class.
+    data structure discussed earlier.
+
+    GraphFrames is a really useful tool for interacting with huge amounts of graph
+    data. The advantages in comparison to the  here (over GraphX) are that arbitrary data types
+    can be used for IDs, instead of just $long$ values, and that the whole data frames
+    are always usable, instead of just a single vertex attributes that are overwritten
+    by algorithms executed on the graph. GraphFrames also comes with handy implementations
+    of common graph algorithms like breadth-first search, PageRank and motif search
+    that will be heavily used in the later chapters of this paper.
 
     TODO continue
 
@@ -307,8 +315,8 @@
   	}
     \end{lstlisting}
 
-    A spark session has to be manually created in the beginning because the implicit .toDF() method
-    needed for transforming the RDD into a GraphFrame is contained in either a
+    A spark session has to be manually created in the beginning because the implicit .toDF() method,
+    which is needed for transforming the RDD into a GraphFrame, is contained in either a
     Spark SQL Context or a session object, the former being the deprecated way of gaining access to this method.
 
     The three nested $map$ statements make every relation type to every target subject
@@ -452,7 +460,23 @@
   These edges however won't exist in the original graph, so they have to be generated
   by searching for paths between the extracted nodes. This can be done by using
   GraphFrames' breadth-first search (BFS) implementation, which is able to use arbitrary
-  attribute selectors for the source and target nodes.
+  attribute selectors for the source and target nodes. It can be limited by a maximal
+  path length, which should be around 3 to not include too complicated paths which
+  wouldn't make for useful relations in a simplified graph.
+
+  After executing the BFS algorithm, the output needs to be processed. For instance,
+  the resulting data frame can be filtered by only containing a single
+  relation type or by summing up the weights all contained edges and thresholding
+  this value as previously discussed. Also, all paths of length 0 and 1 have to
+  be filtered out because they don't provide any meaningful information.
+  Then a description has to be chosen for the resulting relations.
+  A simple approach would be to concatenate the company names along the path
+  (without the source and target), or using the relation types with ellipses (...) to
+  make it evident that the concerned relationship is not present in the source graph.
+
+  Afterwards, the $to$ and $from$ columns (which represent the source and target vertices)
+  as well as the relation description are extracted and concatenated with the thresholded
+  relations from the PageRank output.
 
   \pagebreak
 
@@ -470,7 +494,7 @@
     \pagebreak
 
   \section{Benchmarks and Experiments}
-    \subsection{GraphX vs. Plain RDDs}
+    \subsection{GraphFrames vs. GraphX}
     \subsection{Design decisions and trade-offs}
     \subsection{Technical challenges}
     \pagebreak
