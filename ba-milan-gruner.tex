@@ -430,12 +430,13 @@
   For all companies that are to be modified, its UUID ($id$) and a custom floating point
   value ($weight$) need to be present in the new data frame. Then, the vertex data frame containing
   the PageRank output and the new data frame containing the custom weights can be joined
-  like this:
+  and multiplied like this:
 
-  \begin{lstlisting}[style=scalaStyle,caption=Company Group Extraction]
-    pageRankGraph.vertices
+  \begin{lstlisting}[style=scalaStyle,caption=Custom Weight Joining]
+    pageRankVertices
       .join(weightFrame, List("id"))
-      .select("id", (pageRankVertices.pagerank * weightFrame.weight).alias("pagerank"))
+      .select("id",
+        (pageRankVertices.pagerank * weightFrame.weight).alias("pagerank"))
   \end{lstlisting}
 
   After applying this step, companies that had a weight of $0.0$ assigned won't
@@ -450,7 +451,7 @@
 
   These edges however won't exist in the original graph, so they have to be generated
   by searching for paths between the extracted nodes. This can be done by using
-  GraphFrames' breadth-first search implementation, which is able to use arbitrary
+  GraphFrames' breadth-first search (BFS) implementation, which is able to use arbitrary
   attribute selectors for the source and target nodes.
 
   \pagebreak
