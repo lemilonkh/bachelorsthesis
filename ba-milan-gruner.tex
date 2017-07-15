@@ -377,10 +377,10 @@
   graph structures and also finds an application when dealing with business graphs,
   as the navigation between businesses over their outgoing relations is quite
   alike to the navigation between web pages over their hyper links.
-  Therefore, the vertex output of the algorithm can be interpreted as the
+  Therefore, the vertex output values ($pagerank$) of the algorithm can be interpreted as the
   probability that a user might arrive at a certain business when freely
   navigating the graph, starting at any connected node.
-  The relation output can be seen as the likelihood that the user
+  The relation output values ($weight$) can be seen as the likelihood that the user
   travels along this relation to the next company.
 
   \subsection{Using PageRank to find relevant companies}
@@ -389,8 +389,8 @@
   be executed for a given number of iterations, or it can be run until convergence
   is reached within a certain tolerance interval to keep the algorithm from running endlessly.
   Experience has shown that the former is quite a lot faster, but the number of iterations
-  has to be manually adapted to the graph size and its degree of interconnectedness.
-  Otherwise the results differ too much from the latter implementation.
+  has to be manually adapted to the graph size and its degree of interconnectedness,
+  otherwise the results differ too much from the latter implementation.
   Here, the only parameter that has to be controlled is the tolerance threshold,
   which is independent of the input graph because it only depends on the accuracy that is desired.
 
@@ -416,11 +416,34 @@
 
   The same can be done for the relations in the current connected component.
   By only showing the edges that the user is likely to use, the graph can be greatly
-  simplified. This makes use of the weights the PageRank algorithm assigns to the
-  relations present in the graph.
+  simplified, making use of the weights the PageRank algorithm assigns to the
+  relations present in the graph. This approach is useful when the input graph
+  contains a great number of edges that are not desired in the output, but can,
+  depending on the chosen threshold, lead to a very segmented and unconnected result graph.
+
+  \subsection{Controlling which companies are extracted}
+  In many cases, a fully automated extraction process can be undesirable because
+  it leads to a loss of control over which companies are chosen to be part of the
+  output. To introduce custom weights into the process, more data can be added
+  into the results of the PageRank algorithm before applying the thresholding process.
+
+  For all companies that are to be modified, its UUID ($id$) and a custom floating point
+  value ($weight$) need to be present in the new data frame. Then, the vertex data frame containing
+  the PageRank output and the new data frame containing the custom weights can be joined
+  like this:
+
+  \begin{lstlisting}[style=scalaStyle,caption=Company Group Extraction]
+    pageRankGraph.vertices
+      .join(weightFrame, List("id"))
+      .select("id", (pageRankVertices.pagerank * weightFrame.weight).alias("pagerank"))
+  \end{lstlisting}
+
+  After applying this step, companies that had a weight of $0.0$ assigned won't
+  show up in the resulting graph, while companies with a weight greater than $1.0$
+  are more likely to be part of it.
 
   \subsection{Finding connections between relevant companies}
-  The companies extracted in the previous section are a small subset of the actual
+  The companies extracted in the previous sections are a small subset of the actual
   graph. This means that most of them won't share any relations, resulting in a
   mostly unconnected graph. This of course isn't desirable, so the graph needs to
   be enriched by additional edges.
@@ -429,8 +452,6 @@
   by searching for paths between the extracted nodes. This can be done by using
   GraphFrames' breadth-first search implementation, which is able to use arbitrary
   attribute selectors for the source and target nodes.
-
-  \subsection{Controlling which companies are extracted}
 
   \pagebreak
 
