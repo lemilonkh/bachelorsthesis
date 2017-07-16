@@ -146,8 +146,8 @@
     and is composed of many stand-alone Spark jobs that mostly read and write from or to the Cassandra database.
     \pagebreak
 
-  \section{Data structures for business entities}
-    \subsection{The $Subject$ data structure}
+  \section{Data Structures for Business Entities}
+    \subsection{The $subject$ data structure}
     The central data structure that exists inside the datalake is called $subject$.
     It contains all the final businesses, industry sectors, countries or persons
     that are the result of the computations in the Ingestion project.\\
@@ -175,7 +175,7 @@
     The first three attributes ($id$, $master$, $datasource$) constitute the
     primary key in the Cassandra databases.
     The partitioning key that is used to decide on which Cassandra instance to store
-    a given $Subject$ entry is the $master$ ID, which makes sure that a master node
+    a given $subject$ entry is the $master$ ID, which makes sure that a master node
     and all its data source slave nodes are stored on the same machine.
     $id$ and $datasource$ are used as clustering keys, which control the sorting
     inside the data partitions produced by database queries. They are also easily
@@ -225,7 +225,7 @@
     backup system for our versions.
 
     The version data structures are stores for each attribute and each individual
-    key of the subject entries, which makes restoring individual columns or single
+    key of the $subject$ entries, which makes restoring individual columns or single
     data entries efficient and easily parallelizable.
 
     The version data structure that was used is structured like this:
@@ -240,7 +240,7 @@
     )
     \end{lstlisting}
 
-    It is stored inside the collections of the $history$ fields of the $Subject$
+    It is stored inside the collections of the $history$ fields of the $subject$
     data structure and contains useful meta information for restoring old versions,
     modeling temporal validity (attributes only being valid for a certain timespan)
     or filtering out data from certain data sources. They also contain the Spark
@@ -269,7 +269,7 @@
     is up to the challenge of delivering the input for and storing the results of
     these computations without much hassle (like serializing to CSV or Parquet files would involve).
     It is also well integrated into the Spark API and can take care of complex nested
-    data structures like e.g. the properties and relations attributes of the $Subject$
+    data structures like e.g. the properties and relations attributes of the $subject$
     data structure discussed earlier.
 
     GraphFrames is a really useful tool for interacting with huge amounts of graph
@@ -328,7 +328,7 @@
     It then names them in the scheme that the $GraphFrame$ constructor expects.
     \pagebreak
 
-  \section{Approaches for subgraph extraction}
+  \section{Approaches for Subgraph Extraction}
   This chapter deals with various graph processing jobs developed using the
   GraphFrames framework that extract useful subsets of the full graph in the data lake.
   These are some examples of simple graph processing that lay the cornerstone
@@ -342,7 +342,7 @@
   relations were considered as a company group.
 
   Before the ConnectedComponets algorithm is run, all ownership-related company
-  relations are extracted from the $Subject$ graph. This is done by whitelisting
+  relations are extracted from the $subject$ graph. This is done by whitelisting
   all relations (in $ownershipRelations$) that concern this particular subgraph,
   e.g. "owns" and "ownedBy".
   Then, after executing the search, all entries are grouped by the ID of the
@@ -379,7 +379,7 @@
   the results without always joining all subject's names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
-  \subsection{Using Motif Search to find patterns}
+  \subsection{Using motif search to find patterns}
 
 
   \pagebreak
