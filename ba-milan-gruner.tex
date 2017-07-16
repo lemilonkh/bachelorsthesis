@@ -465,10 +465,11 @@
 
   These edges however won't exist in the original graph, so they have to be generated
   by searching for paths between the extracted nodes. This can be done by using
-  GraphFrames' breadth-first search (BFS) implementation, which is able to use arbitrary
-  attribute selectors for the source and target nodes. It can be limited by a maximal
-  path length, which should be around 3 to not include too complicated paths which
-  wouldn't make for useful relations in a simplified graph.
+  GraphFrames' breadth-first search (BFS)
+  implementation\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.BFS}},
+  which is able to use arbitrary attribute selectors for the source and target nodes.
+  It can be limited by a maximal path length, which should be around 3 to not
+  include too complicated paths which wouldn't make for useful relations in a simplified graph.
 
   After executing the BFS algorithm, the output needs to be processed. For instance,
   the resulting data frame can be filtered by only containing a single
