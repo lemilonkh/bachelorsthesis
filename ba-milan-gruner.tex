@@ -109,8 +109,17 @@
     the Curation interface, the Apache Zeppelin interactive web shell or the Spark shell.
 
     \subsection{Technologies used in this paper}
+    All algorithms in this paper were executed on the Apache Spark platform which
+    controls the parallelization and data flow of the functional steps described
+    in the code samples. The Scala programming language is used because Spark is
+    written in it and because it allows for a more terse representation of the
+    algorithms than the respective Java or Python implementations, shortening
+    the code listings and making them easier to understand. It is also the language
+    the rest of the Ingestion project is written in, resulting in a better interoperability
+    and facilitating code exchange and reuse with it.
+
     Most of the topics in this paper deal with graph-related topics, so the GraphFrames framework
-    (in Scala) will mostly be used to describe the algorithms that were employed,
+    (in Scala) will be used to describe the algorithms that were employed,
     but it can be freely seen as functional pseudo code and adapted to other popular
     graph processing frameworks (such as GraphX, Giraph etc.).
 
