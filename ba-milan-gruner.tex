@@ -468,13 +468,15 @@
   GraphFrames' breadth-first search (BFS)
   implementation\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.BFS}},
   which is able to use arbitrary attribute selectors for the source and target nodes.
+  For this algorithm, either all vertices are selected or only ones with few relations,
+  meaning small degrees, which can be determined by joining $graph.degrees$ into the vertex data frame beforehand.
   It can be limited by a maximal path length, which should be around 3 to not
   include too complicated paths which wouldn't make for useful relations in a simplified graph.
 
   After executing the BFS algorithm, the output needs to be processed. For instance,
   the resulting data frame can be filtered by only containing a single
   relation type or by summing up the weights all contained edges and thresholding
-  this value as previously discussed. Also, all paths of length 0 and 1 have to
+  this value as previously discussed. Also, all paths of length zero and one have to
   be filtered out because they don't provide any meaningful information.
   Then, a description has to be chosen for the resulting relations.
   A simple approach would be to concatenate the company names along the path
