@@ -112,7 +112,7 @@
     Most of the topics in this paper deal with graph-related topics, so the GraphFrames framework
     (in Scala) will mostly be used to describe the algorithms that were employed,
     but it can be freely seen as functional pseudo code and adapted to other popular
-    graph processing frameworks (such as GraphX, Giraph etc.) % TODO more examples
+    graph processing frameworks (such as GraphX, Giraph etc.). % TODO more examples
     For UI-related or user-oriented algorithms, JavaScript (or JSX, so partly using React/ Redux etc.)
     is the listing language, as visual problems are more easily expressed in this
     tree-oriented but still functional style (and also because it's used in Curation). % TODO remove?
@@ -378,7 +378,7 @@
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
   \subsection{Using Motif Search to find patterns}
-  
+
 
   \pagebreak
 
@@ -436,22 +436,22 @@
   \subsection{Controlling which companies are extracted}
   In many cases, a fully automated extraction process can be undesirable because
   it leads to a loss of control over which companies are chosen to be part of the
-  output. To introduce custom weights into the process, more data can be added
+  output. To introduce custom weights into the process, more data can be joined and multiplied
   into the results of the PageRank algorithm before applying the thresholding process.
 
   For all companies that are to be modified, its UUID ($id$) and a custom floating point
-  value ($weight$) need to be present in the new data frame. Then, the vertex data frame containing
-  the PageRank output and the new data frame containing the custom weights can be joined
-  and multiplied like this:
+  value ($weight$) need to be present in the new data frame ($weightFrame$).
+  Then, the vertex data frame containing the PageRank output and the new
+  data frame containing the custom weights can be joined and multiplied like this:
 
   \begin{lstlisting}[style=scalaStyle,caption=Custom Weight Joining]
-    pageRankVertices
+    val weightedVertices = rankGraph.vertices
       .join(weightFrame, List("id"))
       .select("id",
-        (pageRankVertices.pagerank * weightFrame.weight).alias("pagerank"))
+        (rankGraph.vertices.pagerank * weightFrame.weight).alias("pagerank"))
   \end{lstlisting}
 
-  After applying this step, companies that had a weight of $0.0$ assigned won't
+  After applying this step and the tresholding pass, companies that had a weight of $0.0$ assigned won't
   show up in the resulting graph, while companies with a weight greater than $1.0$
   are more likely to be part of it.
 
@@ -473,7 +473,7 @@
   relation type or by summing up the weights all contained edges and thresholding
   this value as previously discussed. Also, all paths of length 0 and 1 have to
   be filtered out because they don't provide any meaningful information.
-  Then a description has to be chosen for the resulting relations.
+  Then, a description has to be chosen for the resulting relations.
   A simple approach would be to concatenate the company names along the path
   (without the source and target), or using the relation types with ellipses (...) to
   make it evident that the concerned relationship is not present in the source graph.
