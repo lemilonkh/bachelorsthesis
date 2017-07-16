@@ -2,10 +2,10 @@
         a4paper,     % Format A4
         titlepage,   % mit Titelseite
         oneside,     % twoside => zweiseitig
-        parskip      % mit Durchschuss
-                     % (= Abstand zwischen Absätzen, statt Einrückung)
+        parskip      % mit Durchschuss (Abstand zwischen Absätzen)
         ]{scrartcl}  % KOMA-Script Grundklasse     texdoc scrguide
 
+\usepackage[USenglish]{babel}
 %\usepackage{ngerman}             % Deutsche Sprache, neue RS   texdoc germdoc (?)
 \usepackage[T1]{fontenc}          % Schriftkodierung mit Umlauten
 \usepackage{textcomp,amsmath}     % Mathezeichen etc.
@@ -282,10 +282,10 @@
 
     \subsection{Constructing a GraphFrame from subject data}
     The core class of the GraphFrame API is the class GraphFrame itself, which
-    is basically a combination of a vertex and relation dataframe as well as a
+    is basically a combination of a vertex and relation data frame as well as a
     lot of operations which can be performed on these. It is a useful tool for
     easily handling the graph data structure and interacting with it in a functional
-    manner whilst still being able to interact with the relational API of Spark's dataframes.
+    manner whilst still being able to interact with the relational API of Spark's data frames.
 
     The case class entries that are queried from Cassandra are transformed into vertex
     and relation data using the Spark RDD API. The results are then translated into
