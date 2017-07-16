@@ -273,14 +273,12 @@
     data structure discussed earlier.
 
     GraphFrames is a really useful tool for interacting with huge amounts of graph
-    data. The advantages in comparison to the  here (over GraphX) are that arbitrary data types
+    data. The advantages in comparison to the GraphX framework (included in Spark) are that arbitrary data types
     can be used for IDs, instead of just $long$ values, and that the whole data frames
     are always usable, instead of just a single vertex attributes that are overwritten
     by algorithms executed on the graph. GraphFrames also comes with handy implementations
     of common graph algorithms like breadth-first search, PageRank and motif search
     that will be heavily used in the later chapters of this paper.
-
-    TODO continue
 
     \subsection{Constructing a GraphFrame from subject data}
     The core class of the GraphFrame API is the class GraphFrame itself, which
