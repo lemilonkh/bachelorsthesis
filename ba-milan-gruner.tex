@@ -317,7 +317,7 @@
   	}
     \end{lstlisting}
 
-    A spark session has to be manually created in the beginning because the implicit .toDF() method,
+    A spark session has to be manually created in the beginning because the implicit $toDF()$ method,
     which is needed for transforming the RDD into a GraphFrame, is contained in either a
     Spark SQL Context or a session object, the former being the deprecated way of gaining access to this method.
 
@@ -411,7 +411,7 @@
   which is independent of the input graph because it only depends on the accuracy that is desired.
 
   After the PageRank algorithm is executed, the results still have to be interpreted,
-  meaning that the nodes have to be separated into 'important' and 'unimportant' groups.
+  meaning that the nodes have to be separated into "important" and "unimportant" groups.
   This can be done using thresholding techniques and can be parallelized
   over the connected components of the business graph.
 
