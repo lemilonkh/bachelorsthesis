@@ -387,7 +387,8 @@
   \section{Graph Simplification using PageRank and Thresholding}
   The PageRank algorithm by Page et al. \cite{pagerank1999} was originally intended
   to compute the likelihood that a user might arrive at a web page
-  in a network of interconnected documents. It can however be adapted to most
+  in a network of interconnected documents, to objectively quantify their "importance" in this network.
+  It can, however, be adapted to most
   graph structures and also finds an application when dealing with business graphs,
   as the navigation between businesses over their outgoing relations is quite
   alike to the navigation between web pages over their hyper links.
@@ -398,7 +399,8 @@
   travels along this relation to the next company.
 
   \subsection{Using PageRank to find relevant companies}
-  Fortunately, PageRank is already implemented in the GraphFrames library.
+  Fortunately, PageRank is already implemented in the GraphFrames
+  library\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.PageRank}}.
   There are two different possibilities to call it on a given graph: it can either
   be executed for a given number of iterations, or it can be run until convergence
   is reached within a certain tolerance interval to keep the algorithm from running endlessly.
