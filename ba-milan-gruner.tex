@@ -281,6 +281,7 @@
     that will be heavily used in the later chapters of this paper.
 
     \subsection{Constructing a GraphFrame from subject data}
+    \label{sec:graphframe_construction}
     The core class of the GraphFrame API is the class GraphFrame itself, which
     is basically a combination of a vertex and relation data frame as well as a
     lot of operations which can be performed on these. It is a useful tool for
@@ -386,13 +387,16 @@
   domain-specific format, not unlike the Cypher query language that is used for
   querying the Neo4j database, and executed using the $find$ method of the
   GraphFrame\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.GraphFrame}}.
-  Vertices are selected using arbitrary names inside of parantheses, while edges are
-  expressed using square brackets, which have to be preceeded by a dash and followed by
-  an arrow. Edges don't have to be named if they aren't needed for further evaluation.
-  These constructions are separated from each other by semicolons.
+  Vertices are selected using arbitrary names inside of parentheses, while edges are
+  expressed using square brackets, which have to be preceded by a dash and followed by
+  an arrow. Vertices and edges don't have to be named if they aren't needed for further evaluation.
+  A single definition consists an edge between two nodes, and these constructions are
+  separated from each other by semicolons.
+
   The resulting data frame that is returned by the $find$ method contains a column
-  for each of the assigned names, which contain $StructFields$ that have the original
-  data of the corresponding vertices or relations inside of them.
+  for each of the assigned names, which contain $StructType$ instances that have the original
+  data of the corresponding vertices or relations inside of them
+  (in the same format as the data frames in chapter \ref{sec:graphframe_construction}).
   As an example, the following expression selects chains of three vertices $x$, $y$, $z$:\\
   {\small\ttfamily "(x)-[e1]->(y); (y)->[e2]->(z)"}
 
@@ -413,10 +417,11 @@
   like chains or cycles of varying lengths. After the motif search has been run,
   custom conditions can be evaluated on the resulting data frame to limit
   the number of returned patterns. For instance, only patterns containing companies
-  with certain attribute values or only containing certain relation types/ at least
-  one relation of type X can be filtered, resulting in a more fine-grained control
+  with certain attribute values, only certain relation types or at least
+  one relation of a specific type can be filtered, resulting in a more fine-grained control
   over the extracted patterns.
-
+  In the end, the final are stored in the $graphs$ table in the same
+  fashion as the company groups in the previous section.
   \pagebreak
 
   \section{Graph Simplification using PageRank and Thresholding}
