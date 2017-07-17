@@ -255,9 +255,9 @@
     \pagebreak
 
   \section{Using Apache Spark and GraphFrames for Graph Analysis}
-  This chapter will briefly discuss the reasons for using Apache Spark and DataStax GraphFrames
-  alongside the Apache Cassandra database. Then the transformations that are
-  necessary to extract GraphFrames-compatible data from the data lake will be detailed.
+  This chapter will briefly discuss the reasons for using the Apache Spark and DataStax GraphFrames
+  frameworks alongside the Apache Cassandra database. Then the transformations that are
+  necessary to extract GraphFrames-compatible data from the subject data structure will be detailed.
   The following chapters will build on the techniques described in this one, so
   that only the relevant graph processing sections need to be shown later on.
 
@@ -337,7 +337,8 @@
   \subsection{Finding company groups in the business graph}
   As a first experiment with real-world applications, company group extraction
   was a good starting algorithm that could be adapted from the connected component
-  tagging which was already present in the GraphFrames API.
+  tagging which was already present in the GraphFrames
+  API\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.ConnectedComponents}}.
   Here, all businesses that were connected via "owns" or "owned by"
   relations were considered as a company group.
 
@@ -346,7 +347,7 @@
   all relations (in $ownershipRelations$) that concern this particular subgraph,
   e.g. "owns" and "ownedBy".
   Then, after executing the search, all entries are grouped by the ID of the
-  associated component and their names and UUIDs are saved to Cassandra
+  associated component and their names and UUIDs are extracted and saved to Cassandra
   as an entry of the $graphs$ table. The following code snippet describes how
   this process is expressed using GraphFrames:
 
@@ -379,7 +380,7 @@
   the results without always joining all subject's names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
-  \subsection{Using motif search to find patterns}
+  \subsection{Using motif finding to find structural patterns}
 
 
   \pagebreak
