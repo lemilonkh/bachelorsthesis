@@ -148,7 +148,7 @@
 
   \section{Data Structures for Business Entities}
     \subsection{The $subject$ data structure}
-    The central data structure that exists inside the datalake is called $subject$.
+    The central data structure that exists inside the data lake is called $subject$.
     It contains all the final businesses, industry sectors, countries or persons
     that are the result of the computations in the Ingestion project.\\
     This is what it looks like in Scala:
@@ -208,7 +208,7 @@
     but at the end it is expected that all data will flow back into the central
     'data lake' that is the $subject$ table, described earlier in this chapter.
     This means that fully automated processes may and will write millions of
-    data entries to the datalake at an hourly basis (or even more frequent),
+    data entries to the data lake at an hourly basis (or even more frequent),
     so if any breaking changes are introduced by these, they need to be rerolled quickly.
     This means that each version isn't saved as a diff like in version control systems
     (e.g. git), but rather every single version has a copy of all the attributes,
@@ -246,7 +246,7 @@
     or filtering out data from certain data sources. They also contain the Spark
     program's name that created the relevant changes and the time they were made.
 
-    Additionally, the $version$ table contains a list of all changes to the datalake,
+    Additionally, the $version$ table contains a list of all changes to the data lake,
     making it traceable which programs were ran at what time, which table they wrote
     to and what data sources they processed. Using this, the Curation interface
     can display the annotated version list, and run Spark jobs that restore the
@@ -381,7 +381,41 @@
   a graph list in the Curation interface, because only one table's content needs to be fetched for it.
 
   \subsection{Using motif finding to find structural patterns}
+  Motif finding is an approach to search for specific relation structures between
+  vertices in the graph. On a GraphFrame, it is expressed using strings in a
+  domain-specific format, not unlike the Cypher query language that is used for
+  querying the Neo4j database, and executed using the $find$ method of the
+  GraphFrame\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.GraphFrame}}.
+  Vertices are selected using arbitrary names inside of parantheses, while edges are
+  expressed using square brackets, which have to be preceeded by a dash and followed by
+  an arrow. Edges don't have to be named if they aren't needed for further evaluation.
+  These constructions are separated from each other by semicolons.
+  The resulting data frame that is returned by the $find$ method contains a column
+  for each of the assigned names, which contain $StructFields$ that have the original
+  data of the corresponding vertices or relations inside of them.
+  As an example, the following expression selects chains of three vertices $x$, $y$, $z$:\\
+  {\small\ttfamily "(x)-[e1]->(y); (y)->[e2]->(z)"}
 
+  Because the queries are expressed using strings, they can be automatically constructed.
+  This is necessary, because each query can only search for a constant number of
+  vertices and relations, but most structures that I wanted to find are indifferent
+  to their count. This listing details how to automatically construct queries for
+  stars of varying sizes:
+
+  \begin{lstlisting}[style=scalaStyle,caption=Star Motif Query Creation]
+  ('a' to 'z')
+    .take(starSize)
+	  .map(char => "("+char+")-[]->(center)")
+    .mkString("; ")
+  \end{lstlisting}
+
+  This approach is very flexible and can be used to generate many types of patterns,
+  like chains or cycles of varying lengths. After the motif search has been run,
+  custom conditions can be evaluated on the resulting data frame to limit
+  the number of returned patterns. For instance, only patterns containing companies
+  with certain attribute values or only containing certain relation types/ at least
+  one relation of type X can be filtered, resulting in a more fine-grained control
+  over the extracted patterns.
 
   \pagebreak
 
