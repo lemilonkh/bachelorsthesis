@@ -412,8 +412,9 @@
 
   Because the queries are expressed using strings, they can be automatically constructed.
   This is necessary, because each query can only search for a constant number of
-  vertices and relations, but most structures that I wanted to find are indifferent
-  to their count. Listing \ref{lst:star_motif} details how to automatically construct queries for
+  vertices and relations, but most relevant graph structures are indifferent
+  to their count.\\
+  Listing \ref{lst:star_motif} details how to automatically construct queries for
   stars of varying sizes:
 
   \begin{lstlisting}[style=scalaStyle,caption=Star Motif Query Creation,label=lst:star_motif]
@@ -451,29 +452,39 @@
   travels along this relation to the next company.
 
   \subsection{Using PageRank to find relevant companies}
-  Fortunately, PageRank is already implemented in the GraphFrames
-  library\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.PageRank}}.
+  The PageRank implementation found in the GraphFrames
+  library\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.PageRank}}
+  is used for parallel execution of this algorithm.
   There are two different possibilities to call it on a given graph: it can either
   be executed for a given number of iterations, or it can be run until convergence
   is reached within a certain tolerance interval to keep the algorithm from running endlessly.
-  Experience has shown that the former is quite a lot faster, but the number of iterations
+  The former is a lot faster, because it does not repeat until the iterations produce
+  a small enough change in each node, but the number of iterations
   has to be manually adapted to the graph size and its degree of interconnectedness,
-  otherwise the results differ too much from the latter implementation.
-  Here, the only parameter that has to be controlled is the tolerance threshold,
-  which is independent of the input graph because it only depends on the accuracy that is desired.
+  otherwise the results differ too much from the values when convergence is reached,
+  possibly making for a high chance of errors. Here, a trade-off between execution
+  speed and resulting graph quality has to be made.
+  By running until convergence, the only parameter that has to be controlled is the tolerance threshold,
+  which is independent of the input graph because it only depends on the accuracy that is desired,
+  as the algorithm continues executing until all $pagerank$ value changes
+  are under this threshold.
 
   After the PageRank algorithm is executed, the results still have to be interpreted,
   meaning that the nodes have to be separated into "important" and "unimportant" groups.
-  This can be done using thresholding techniques and can be parallelized
+  This can be done using thresholding techniques which can be parallelized
   over the connected components of the business graph.
 
   First, the individual $pagerank$ values assigned to every node have to be normalized
-  over the whole connected component, which is done by finding the maximum of this
-  attribute in the component and dividing every node's attribute by it.
+  over the whole connected component to limit them to the interval $[0, 1]$,
+  so that the following tresholding step can work with a constant maximum value.
+  This is done by finding the maximum of this
+  value in the component and dividing every node's value by it.
   Then, a threshold value has to be picked for the component. This can either be done
   using an absolute threshold that has to be determined for the whole graph, or
   using an adaptive thresholding technique like Otsu's method \cite{otsu1979threshold},
-  which is normally used for greyscale image thresholding, but can be applied here as well.
+  which is normally used for greyscale image thresholding, but is equally applicable
+  here because it works on all one-dimensional histograms and finds a good
+  threshold for separating two value classes from each other.
 
   It works by creating a histogram of the absolute frequency of
   each $pagerank$ value present in the component, which are grouped into bins.
@@ -501,7 +512,7 @@
   into the concerned companies' properties in the Curation interface, or by logging and counting
   every manual change in the Curation interface and using these values as an offset for the
   PageRank values (these would have to be added instead of multiplied in then).
-  The weight values could also be calculated by a function that measures the existence
+  The weight values can also be calculated by a function that measures the existence
   of relevant attributes in the $properties$ structure of the companies, or by
   using another dataset like a blacklist of companies that should never be included.
 
@@ -549,7 +560,7 @@
   as well as the constructed relation description are extracted and concatenated with the thresholded
   relations from the PageRank output, and the final vertices and relations are written
   to the database.
-  \pagebreak
+  %\pagebreak
 
   \section{Conclusion and Evaluation}
   The graph processing algorithms in this paper are to be seen as examples of
