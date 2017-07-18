@@ -105,8 +105,6 @@
     Curation generates graphs on-the-fly that contain the statistics data that was written
     as a side effect of the numerous Spark jobs in the Ingestion pipeline and gives
     a lot of insight into what's going on in the "data lake".
-    All of the experiments contained in this paper were conducted using either
-    the Curation interface, the Apache Zeppelin interactive web shell or the Spark shell.
 
     \subsection{Technologies used in this paper}
     All algorithms in this paper were executed on the Apache Spark platform which
@@ -153,6 +151,7 @@
     The central data structure that exists inside the data lake is called $subject$.
     It contains all the final businesses, industry sectors, countries or persons
     that are the result of the computations in the Ingestion project.\\
+
     This is what it looks like in Scala:
     \begin{lstlisting}[style=scalaStyle,caption=Subject]
     case class Subject(
@@ -483,8 +482,11 @@
   using an absolute threshold that has to be determined for the whole graph, or
   using an adaptive thresholding technique like Otsu's method \cite{otsu1979threshold},
   which is normally used for greyscale image thresholding, but is equally applicable
-  here because it works on all one-dimensional histograms and finds a good
-  threshold for separating two value classes from each other.
+  here as it works on all one-dimensional histograms.
+  It is particularly useful in this case because it removes the reliance
+  on the degree of interconnectedness in the components and their size,
+  and finds a good threshold for all connected component sizes that separates
+  two value classes ("important" and "unimportant") from each other.
 
   It works by creating a histogram of the absolute frequency of
   each $pagerank$ value present in the component, which are grouped into bins.
