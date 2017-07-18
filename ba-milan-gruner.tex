@@ -3,7 +3,7 @@
         titlepage,   % mit Titelseite
         oneside,     % twoside => zweiseitig
         parskip      % mit Durchschuss (Abstand zwischen Absätzen)
-        ]{scrartcl}  % KOMA-Script Grundklasse     texdoc scrguide
+]{scrartcl}          % KOMA-Script Grundklasse     texdoc scrguide
 
 \usepackage[USenglish]{babel}
 %\usepackage{ngerman}             % Deutsche Sprache, neue RS   texdoc germdoc (?)
@@ -75,7 +75,7 @@
   \section*{Abstract}
   { \large
     Costructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
-    With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting spots in the graph are needed.
+    With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting areas in the graph are needed.
     This paper discusses different approaches that can be taken to extract useful knowledge from such a graph.
   }
 
@@ -130,24 +130,26 @@
 
     \subsection{Usage Scenarios of Ingestion, Curation and GraphXplore}
     The process of classic risk analysis which is still majorly employed in today's banks is mostly
-    a model-oriented process that heavily relies on speculation or predictions.\\
+    a model-oriented process that relies on predictions and can be augmented by data-driven approaches.
     The techniques that Ingestion, Curation and this paper offer are universally
-    usable to analyze huge amounts of structured or unstructured data
+    applicable to analyze huge amounts of structured and unstructured data
     in the form of WikiData, JSON, CSV or similar data as well as newspaper articles,
-    messages (eMail, instant or otherwise) or similar data sources.\\
-    The results of this can either be viewed as a graph or a relational model
-    using the conversion algorithms briefly discussed later in this paper.
+    email messages or similar data sources.\\
+    The results of the algorithms contained in these projects can either be viewed as a graph or a relational model
+    using the conversion algorithms briefly discussed later.
     Because this project consists of automatic processes
     that control the flow, categorization and extraction
-    of all the data in the data lake, it may be effectively deployed in a bank
+    of all the data contained in the data lake, it may be effectively deployed in a bank
     or similar institution as a data collection, curation and analysis software stack.\\
     It is meant to be heavily extensible and allows the simple integration of new data sources % TODO really possible in the end?
-    as well as algorithms and data structures in general. The pipeline itself is very modular
-    and is composed of many stand-alone Spark jobs that mostly read and write from or to the Cassandra database.
-    \pagebreak
+    as well as algorithms that allow for further data processing and enrichment.
+    The pipeline itself is very modular and is composed of many stand-alone
+    Spark jobs that transform the data in the Cassandra database.
+    %\pagebreak
 
   \section{Data Structures for Business Entities}
     \subsection{The $subject$ data structure}
+    \label{sec:subject_structure}
     The central data structure that exists inside the data lake is called $subject$.
     It contains all the final businesses, industry sectors, countries or persons
     that are the result of the computations in the Ingestion project.\\
@@ -257,10 +259,14 @@
     scheme is discussed in Strelow \cite{strelow}.
     \pagebreak
 
-  \section{Using Apache Spark and GraphFrames for Graph Analysis}
-  This chapter will briefly discuss the reasons for using the Apache Spark and DataStax GraphFrames
-  frameworks alongside the Apache Cassandra database. Then the transformations that are
-  necessary to extract GraphFrames-compatible data from the subject data structure will be detailed.
+  \section{Using Spark and GraphFrames for Graph Analysis}
+  This chapter will briefly discuss the reasons for using the
+  Apache Spark\footnote{\url{https://spark.apache.org}}
+  and DataStax GraphFrames\footnote{\url{https://graphframes.github.io}}
+  frameworks alongside the
+  Apache Cassandra database\footnote{\url{https://cassandra.apache.org}}.
+  Then the transformations that are necessary to extract GraphFrames-compatible
+  data from the subject data structure will be detailed.
   The following chapters will build on the techniques described in this one, so
   that only the relevant graph processing sections need to be shown later on.
 
@@ -268,12 +274,13 @@
     The subject table contains millions of entries. In order to efficiently extract
     a graph and calculate the results of complex graph algorithms, a parallel processing
     framework like Apache Spark is a really important measure to take into consideration when runtimes
-    of multiple hours (or even days) aren't desired. Cassandra is a database that
-    is up to the challenge of delivering the input for and storing the results of
-    these computations without much hassle (like serializing to CSV or Parquet files would involve).
+    of multiple hours (or even days) aren't desired, which normally would be the case for data of this magnitude.
+    Cassandra is a database that is up to the challenge of delivering the input for and storing the results of
+    these computations without much complicated serialization, like storing them
+    in CSV or binary files (like e.g. the Parquet format commonly used for storing Spark's data frames) would involve.
     It is also well integrated into the Spark API and can take care of complex nested
     data structures like e.g. the properties and relations attributes of the $subject$
-    data structure discussed earlier.
+    data structure discussed, which was discussed in chapter \ref{sec:subject_structure}.
 
     GraphFrames is a really useful tool for interacting with huge amounts of graph
     data. The advantages in comparison to the GraphX framework (included in Spark) are that arbitrary data types
@@ -340,8 +347,8 @@
 
   \subsection{Finding company groups in the business graph}
   As a first experiment with real-world applications, company group extraction
-  was a good starting algorithm that could be adapted from the connected component
-  tagging which was already present in the GraphFrames
+  was a good starting algorithm that could be implemented using the connected component
+  tagging implementation in the GraphFrames
   API\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.ConnectedComponents}}.
   Here, all businesses that were connected via "owns" or "owned by"
   relations were considered as a company group.
@@ -546,7 +553,7 @@
   The graph processing algorithms in this paper are to be seen as examples of
   how the specific graph features could be extracted. They are in no way the most
   efficient implementation (particularly because GraphFrames is quite slow in
-  processing the huge amounts of data in the data lake). Also, the inclusion
+  processing the huge amounts of data contained in the data lake). Also, the inclusion
   of automatically extracted relations holds many challenges of its own, because
   most algorithms in this paper are heavily dependent on the quality of the relations.
 
