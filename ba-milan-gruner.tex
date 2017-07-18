@@ -424,7 +424,9 @@
   \end{lstlisting}
 
   This approach is very flexible and can be used to generate many types of patterns,
-  like chains or cycles of varying lengths. After the motif search has been run,
+  like chains or cycles of varying lengths. It is executed (with the associated $find$ call)
+  inside a counting loop (incrementing $starSize$).
+  After this motif search iteration has been run,
   custom conditions can be evaluated on the resulting data frame to limit
   the number of returned patterns. For instance, only patterns containing companies
   with certain attribute values, only certain relation types or at least
@@ -432,7 +434,7 @@
   over the extracted patterns.
   In the end, the final vertices and relations are stored in the $graphs$ table in the same
   fashion as the company groups in the previous section.
-  \pagebreak
+  %\pagebreak
 
   \section{Graph Simplification using PageRank and Thresholding}
   The PageRank algorithm by Page et al. \cite{pagerank1999} was originally intended
