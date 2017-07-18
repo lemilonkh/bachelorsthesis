@@ -222,7 +222,7 @@
     Because our data domain included events, attributes and relations that had
     temporal validity parameters attached to them, we had to realize a versioning
     scheme that was compatible with the column-family oriented storage of Cassandra.
-    As everything is distributed across the cluster here, a diff-oriented versioning
+    As everything is distributed across the cluster here, difference-based versioning
     would be hard to keep up, so our team decided on a deeply structured deep copy
     backup system for our versions.
 
@@ -286,23 +286,23 @@
     data. The advantages in comparison to the GraphX framework (included in Spark) are that arbitrary data types
     can be used for IDs, instead of just $long$ values, and that the whole data frames
     are always usable, instead of just a single vertex attributes that are overwritten
-    by algorithms executed on the graph. GraphFrames also comes with handy implementations
+    by algorithms executed on the graph. This is necessary, when the algorithms need to
+    evaluate certain attributes like the size, industry sector or geographic location of the companies.
+    GraphFrames also comes with handy implementations
     of common graph algorithms like breadth-first search, PageRank and motif search
-    that will be heavily used in the later chapters of this paper.
+    that will be heavily used in the following chapters.
 
     \subsection{Constructing a GraphFrame from subject data}
     \label{sec:graphframe_construction}
     The core class of the GraphFrame API is the class GraphFrame itself, which
     is basically a combination of a vertex and relation data frame as well as a
-    lot of operations which can be performed on these. It is a useful tool for
+    lot of operations which can be performed on them. It is a useful tool for
     easily handling the graph data structure and interacting with it in a functional
     manner whilst still being able to interact with the relational API of Spark's data frames.
-
     The case class entries that are queried from Cassandra are transformed into vertex
     and relation data using the Spark RDD API. The results are then translated into
-    data frames, which GraphFrames expects when creating a new graph instance.
-
-    The $extractGraph$ function from $GraphExtractor$ takes care of this process:
+    data frames, which GraphFrames expects when creating a new graph instance.\\
+    The $extractGraph$ function from $GraphExtractor$ implements this process:
 
     \begin{lstlisting}[style=scalaStyle,caption=extractGraph in $GraphExtractor$]
     def extractGraph(subjects: RDD[Subject], sc: SparkContext): GraphFrame = {
@@ -332,15 +332,16 @@
     which is needed for transforming the RDD into a GraphFrame, is contained in either a
     Spark SQL Context or a session object, the former being the deprecated way of gaining access to this method.
 
-    The three nested $map$ statements make every relation type to every target subject
-    contained into a new tuple in the resulting RDD. Because of the outer $flatMap$
-    calls, the algorithm gets rid off all of the nested structure of the $relations$
-    attribute, adding the source node to every given triple of the target, relation type, and relation value.
+    The nested $flatMap$ and $map$ statements flatten the nested structure of the $relations$ attribute,
+    transforming it into multiple tuples of source and target node, relation type, and relation value.
     It then names them in the scheme that the $GraphFrame$ constructor expects.
+
+    The result is a GraphFrame instance containing the company and relation data of all $subject$
+    entries in the database that will be used to execute the algorithms in the following chapters.
     \pagebreak
 
   \section{Approaches for Subgraph Extraction}
-  This chapter deals with various graph processing jobs developed using the
+  This chapter deals with various graph processing algorithms developed using the
   GraphFrames framework that extract useful subsets of the full graph in the data lake.
   These are some examples of simple graph processing that lay the cornerstone
   for the remaining graph evaluation techniques discussed in later chapters.
@@ -350,8 +351,8 @@
   was a good starting algorithm that could be implemented using the connected component
   tagging implementation in the GraphFrames
   API\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.ConnectedComponents}}.
-  Here, all businesses that were connected via "owns" or "owned by"
-  relations were considered as a company group.
+  Here, all businesses that are connected via "owns" or "owned by"
+  relations are considered as a company group.
 
   Before the ConnectedComponets algorithm is run, all ownership-related company
   relations are extracted from the $subject$ graph. This is done by whitelisting
@@ -383,13 +384,12 @@
 			idNameTuples.filter(_._2 != null).map(_._2)))
   \end{lstlisting}
 
-  The result is a list of businesses like the following:
-
+  As a result we get a list of businesses like the following:\\
   Oracle America, Hyperion Solutions, Sun Microsystems, Micros Systems, Oracle Financial Services Software, Oracle, PeopleSoft, Acme Packet, Art Technology Group
 
   The corresponding IDs are also stored alongside the names and the graph type (here: "CompanyGroup"). This makes it easy to analyze
-  the results without always joining all subject's names and IDs to this dataset. It also facilitates displaying
-  a graph list in the Curation interface, because only one table's content needs to be fetched for it.
+  the results without joining all subject names and IDs to this dataset. It also facilitates displaying
+  a graph list in the Curation interface, because only the content of one table needs to be fetched for it.
 
   \subsection{Using motif finding to find structural patterns}
   Motif finding is an approach to search for specific relation structures between
@@ -399,8 +399,8 @@
   GraphFrame\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.GraphFrame}}.
   Vertices are selected using arbitrary names inside of parentheses, while edges are
   expressed using square brackets, which have to be preceded by a dash and followed by
-  an arrow. Vertices and edges don't have to be named if they aren't needed for further evaluation.
-  A single definition consists an edge between two nodes, and these constructions are
+  an arrow. Vertices and edges don't have to be named if they aren't needed for further processing.
+  A single definition consists of an edge between two nodes, and these constructions are
   separated from each other by semicolons.
 
   The resulting data frame that is returned by the $find$ method contains a column
@@ -413,10 +413,10 @@
   Because the queries are expressed using strings, they can be automatically constructed.
   This is necessary, because each query can only search for a constant number of
   vertices and relations, but most structures that I wanted to find are indifferent
-  to their count. This listing details how to automatically construct queries for
+  to their count. Listing \ref{lst:star_motif} details how to automatically construct queries for
   stars of varying sizes:
 
-  \begin{lstlisting}[style=scalaStyle,caption=Star Motif Query Creation]
+  \begin{lstlisting}[style=scalaStyle,caption=Star Motif Query Creation,label=lst:star_motif]
   ('a' to 'z')
     .take(starSize)
 	  .map(char => "("+char+")-[]->(center)")
@@ -430,7 +430,7 @@
   with certain attribute values, only certain relation types or at least
   one relation of a specific type can be filtered, resulting in a more fine-grained control
   over the extracted patterns.
-  In the end, the final are stored in the $graphs$ table in the same
+  In the end, the final vertices and relations are stored in the $graphs$ table in the same
   fashion as the company groups in the previous section.
   \pagebreak
 
