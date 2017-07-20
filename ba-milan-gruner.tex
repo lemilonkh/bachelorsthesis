@@ -66,18 +66,41 @@
   Betreuung: Prof. Dr. Felix Naumann, Michael Loster, Toni Gruetze
 }
 
-\pagestyle{headings}    % Seitenstil mit Kapitelüberschriften in der Kopfzeile
+\pagestyle{headings} % Seitenstil mit Kapitelüberschriften in der Kopfzeile
 
 \begin{document}
 
   \maketitle % Titelseite erzeugen
-  \clearpage % neue Seite (war \cleardoublepage)
+  \clearpage % neue Seite
 
   \section*{Abstract}
   { \large
-    Costructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
+    Constructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
     With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting areas in the graph are needed.
     This paper discusses different approaches that can be taken to extract useful knowledge from such a graph.
+
+    First, the Ingestion bachelor's project and the technologies used
+    for implementing the algorithms in this paper will be introduced.
+    Then, the data structures that are the basis of all data contained in the
+    data lake will be detailed, followed by a introduction to the used graph processing
+    framework and a description of the algorithm used to construct a graph from the
+    previously discussed data structures.
+
+    Afterwards, an algorithm to extract company group structures from the graph
+    is discussed, as well as a method to find structural patterns. These work using
+    connected component analysis and motif search and are provided as examples for
+    how to extract specific features from the graph.
+
+    Following, an automated process for simplifying the graph by applying PageRank
+    and thresholding algorithms and methods customizing the extracted companies
+    and for increasing the degree of interconnectedness are introduced.\\
+    Finally, the discussed algorithms are evaluated, conclusions are drawn
+    and an outlook on further possible improvements is provided.
+  }
+
+  \section*{Zusammenfassung}
+  { \large
+
   }
 
   \clearpage
@@ -384,8 +407,7 @@
 			idNameTuples.filter(_._2 != null).map(_._2)))
   \end{lstlisting}
 
-  As a result we get a list of businesses like the following, which is easily
-  verifiable to be a company group:
+  As a result we get a list of businesses like the following:
   \begin{itemize}[noitemsep]
   \item Oracle
   \item Oracle America
@@ -608,13 +630,13 @@
   can be implemented, like the extraction of production chains of multiple companies
   using supply and trade relations or the extraction of competitor graphs.
 
-  Another issue is the performance of the discussed algorithms. To increase it, they can be partially
-  ported over to the GraphX framework integrated into Spark. Because it works on
-  a much smaller data structure that is tightly packed into a binary format, the
-  data exchange over the local network is faster and less data needs to be stored
-  between stages. This is easily integrated into the current algorithms, because
+  Another issue is the performance of the discussed algorithms. To increase it,
+  they can be partially ported over to the GraphX framework integrated into Spark.
+  This is easily integrated into the current algorithms, because
   GraphFrames offers conversion methods that translate its GraphFrame structure
-  into GraphX graphs and back.
+  into GraphX graphs and back. Because it works on a much smaller data structure
+  that is tightly packed into a binary format, the data exchange over the
+  local network is faster and less data needs to be stored between stages.
 
   \clearpage
 
