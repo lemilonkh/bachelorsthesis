@@ -14,6 +14,7 @@
 %\usepackage{beramono}             % Font for code listings (?)
 \usepackage{listings}             % Code snippets
 \usepackage{xcolor}               % Custom colors in code listings
+\usepackage{enumitem}             % Custom list formatting
 
 % Listing color definitions
 \definecolor{numbercolor}{rgb}{0.5,0.5,0.5}
@@ -146,7 +147,7 @@
     %\pagebreak
 
   \section{Data Structures for Business Entities}
-    \subsection{The $subject$ data structure}
+    \subsection{The subject data structure}
     \label{sec:subject_structure}
     The central data structure that exists inside the data lake is called $subject$.
     It contains all the final businesses, industry sectors, countries or persons
@@ -383,10 +384,21 @@
 			idNameTuples.filter(_._2 != null).map(_._2)))
   \end{lstlisting}
 
-  As a result we get a list of businesses like the following:\\
-  Oracle America, Hyperion Solutions, Sun Microsystems, Micros Systems, Oracle Financial Services Software, Oracle, PeopleSoft, Acme Packet, Art Technology Group
+  As a result we get a list of businesses like the following, which is easily
+  verifiable to be a company group:
+  \begin{itemize}[noitemsep]
+  \item Oracle
+  \item Oracle America
+  \item Sun Microsystems
+  \item Hyperion Solutions
+  \item Micros Systems
+  \item Oracle Financial Services Software
+  \item PeopleSoft
+  \item Acme Packet
+  \item Art Technology Group
+  \end{itemize}
 
-  The corresponding IDs are also stored alongside the names and the graph type (here: "CompanyGroup"). This makes it easy to analyze
+  The corresponding IDs are also stored alongside the names and the graph type (here: "CompanyGroup"). This makes it easier to analyze
   the results without joining all subject names and IDs to this dataset. It also facilitates displaying
   a graph list in the Curation interface, because only the content of one table needs to be fetched for it.
 
