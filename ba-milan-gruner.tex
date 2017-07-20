@@ -359,12 +359,14 @@
     \pagebreak
 
   \section{Approaches for Subgraph Extraction}
+  \label{sec:subgraph_extraction}
   This chapter deals with various graph processing algorithms developed using the
   GraphFrames framework that extract useful subsets of the full graph in the data lake.
   These are some examples of simple graph processing that lay the cornerstone
   for the remaining graph evaluation techniques discussed in later chapters.
 
   \subsection{Finding company groups in the business graph}
+  \label{sec:company_groups}
   As a first experiment with real-world applications, company group extraction
   was a good starting algorithm that could be implemented using the connected component
   tagging implementation in the GraphFrames
@@ -420,6 +422,7 @@
   a graph list in the Curation interface, because only the content of one table needs to be fetched for it.
 
   \subsection{Using motif finding to find structural patterns}
+  \label{sec:motif_finding}
   Motif finding is an approach to search for specific relation structures between
   vertices in the graph. On a GraphFrame, it is expressed using strings in a
   domain-specific format, not unlike the Cypher query language that is used for
@@ -597,8 +600,6 @@
   %\pagebreak
 
   \section{Conclusion and Evaluation}
-
-
   The graph simplification algorithm describe in chapter \ref{sec:graph_simplification}
   is useful for getting a better understanding of the structures present in the subject graph.
   It can also be used to provide users with a basic navigation structure when the
@@ -627,7 +628,8 @@
   When more relation types become available in the data lake using the relationship extraction methods
   contained in the text mining subproject in Ingestion, many more extraction algorithms
   can be implemented, like the extraction of production chains of multiple companies
-  using supply and trade relations or the extraction of competitor graphs.
+  using supply and trade relations (utilizing motif search like in chapter \ref{sec:motif_finding})
+  or the extraction of competitor graphs (using connected components like in chapter \ref{sec:company_groups}).
 
   Another issue is the performance of the discussed algorithms. To increase it,
   they can be partially ported over to the GraphX framework integrated into Spark.
@@ -636,6 +638,8 @@
   into GraphX graphs and back. Because it works on a much smaller data structure
   that is tightly packed into a binary format, the data exchange over the
   local network is faster and less data needs to be stored between stages.
+  Using this method, particularly slow sections of the algorithms can my be sped up
+  by a lot, depending on how much data is removed from the vertices before execution.
 
   \clearpage
 
