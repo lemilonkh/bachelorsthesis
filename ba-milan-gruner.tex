@@ -437,6 +437,7 @@
   %\pagebreak
 
   \section{Graph Simplification using PageRank and Thresholding}
+  \label{sec:graph_simplification}
   The PageRank algorithm by Page et al. \cite{pagerank1999} was originally intended
   to compute the likelihood that a user might arrive at a web page
   in a network of interconnected documents, to objectively quantify their "importance" in this network.
@@ -522,10 +523,10 @@
   data frame containing the custom weights can be joined and multiplied like this:
 
   \begin{lstlisting}[style=scalaStyle,caption=Custom Weight Joining]
-    val weightedVertices = rankGraph.vertices
-      .join(weightFrame, List("id"))
-      .select("id",
-        (rankGraph.vertices.pagerank * weightFrame.weight).alias("pagerank"))
+  val weightedVertices = rankGraph.vertices
+    .join(weightFrame, List("id"))
+    .select("id",
+      (rankGraph.vertices.pagerank * weightFrame.weight).alias("pagerank"))
   \end{lstlisting}
 
   After applying this step and the tresholding pass, companies that had a weight of $0.0$ assigned won't
@@ -568,12 +569,40 @@
   The graph processing algorithms in this paper are to be seen as examples of
   how the specific graph features could be extracted. They are in no way the most
   efficient implementation (particularly because GraphFrames is quite slow in
-  processing the huge amounts of data contained in the data lake). Also, the inclusion
-  of automatically extracted relations holds many challenges of its own, because
-  most algorithms in this paper are heavily dependent on the quality of the relations.
+  processing the huge amounts of data contained in the data lake), but are already
+  quite useful for extracting different views of the subject graph that represent
+  specific features like contained company groups or patterns that provide a different
+  way to navigate the graph, instead of just traversing it using outgoing relations.
+
+  The graph simplification algorithm describe in chapter \ref{sec:graph_simplification}
+  is useful for getting a better understanding of the structures present in the subject graph
+  and can also be used to provide users with a basic navigation structure when the
+  graph gains more relations so its connectedness increases. This graph might
+  be preloaded in the Corporate Landscape Explorer developed during the previous
+  bachelor's project to show a base skeleton of companies that include its most
+  important connections.
 
   \subsection{Technical challenges}
+  The inclusion of automatically extracted relations holds many challenges of its own, because
+  most algorithms in this paper are heavily dependent on the quality of the relations.
+  For instance the company group extraction algorithm is extremely vulnerable
+  to the introduction of wrong ownership relations into the subject graph, because
+  it is based on finding connected components in it, which leads to the two company
+  groups being considered as one, leading to a lot of wrong data.
+
   \subsection{Outlook}
+  When more relation types become available in the data lake using the relationship extraction methods
+  contained in the text mining subproject in Ingestion, many more extraction algorithms
+  can be implemented, like the extraction of production chains of multiple companies
+  using supply and trade relations or the extraction of competitor graphs.
+
+  Another issue is the performance of the discussed algorithms. To increase it, they can be partially
+  ported over to the GraphX framework integrated into Spark. Because it works on
+  a much smaller data structure that is tightly packed into a binary format, the
+  data exchange over the local network is faster and less data needs to be stored
+  between stages. This is easily integrated into the current algorithms, because
+  GraphFrames offers conversion methods that translate its GraphFrame structure
+  into GraphX graphs and back.
 
   \clearpage
 
