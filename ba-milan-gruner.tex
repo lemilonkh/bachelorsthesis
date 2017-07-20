@@ -323,34 +323,34 @@
     The $extractGraph$ function from $GraphExtractor$ implements this process:
 
     \begin{lstlisting}[style=scalaStyle,caption=extractGraph in $GraphExtractor$]
-    def extractGraph(subjects: RDD[Subject], sc: SparkContext): GraphFrame = {
-  		val spark = SparkSession
-  			.builder()
-  			.appName(appName)
-  			.config(sc.getConf)
-  			.getOrCreate()
-  		import spark.implicits._
+		val subjectVertices = subjects
+			.map(subject => (subject.id.toString, subject.name))
+			.toDF("id", "name")
+		val subjectRelations = subjects.flatMap(subject => {
+			subject.masterRelations.flatMap { case (id, relTypes) =>
+				relTypes.map { case (relType, value) =>
+					(subject.id.toString, id.toString, relType, value)
+				}
+			}
+		}).toDF("src", "dst", "relationship", "value")
 
-  		val subjectVertices = subjects
-  			.map(subject => (subject.id.toString, subject.name))
-  			.toDF("id", "name")
-  		val subjectRelations = subjects.flatMap(subject => {
-  			subject.masterRelations.flatMap { case (id, relTypes) =>
-  				relTypes.map { case (relType, value) =>
-  					(subject.id.toString, id.toString, relType, value)
-  				}
-  			}
-  		}).toDF("src", "dst", "relationship", "value")
-
-  		GraphFrame(subjectVertices, subjectRelations)
-  	}
+		GraphFrame(subjectVertices, subjectRelations)
     \end{lstlisting}
 
-    A spark session has to be manually created in the beginning because the implicit $toDF()$ method,
-    which is needed for transforming the RDD into a GraphFrame, is contained in either a
-    Spark SQL Context or a session object, the former being the deprecated way of gaining access to this method.
+    If entries from the $properties$ map are needed (e.g. for calculating the custom weights in
+    chapter \ref{sec:custom_weights}), they need to be manually extracted
+    and added to the column names like shown in listing \ref{lst:custom_weights}.
+    They can then be used as a vertex attribute.
+    \begin{lstlisting}[style=scalaStyle,caption=Custom weight extraction,label=lst:custom_weights]
+		val subjectVertices = subjects
+			.map(subject => {
+        val weight = subject.properties("graph_weight")
+          .headOption.getOrElse("1.0").toDouble
+        (subject.id.toString, subject.name, weight)
+      }).toDF("id", "name", "weight")
+    \end{lstlisting}
 
-    The nested $flatMap$ and $map$ statements flatten the nested structure of the $relations$ attribute,
+    The three $flatMap$ and $map$ statements flatten the nested structure of the $relations$ attribute,
     transforming it into multiple tuples of source and target node, relation type, and relation value.
     It then names them in the scheme that the $GraphFrame$ constructor expects.
 
@@ -532,7 +532,8 @@
   contains a great number of edges that are not desired in the output, but can,
   depending on the chosen threshold, lead to a very segmented and unconnected result graph.
 
-  \subsection{Controlling which companies are extracted}
+  \subsection{Adding custom weights to influence company extraction}
+  \label{sec:custom_weights}
   In many cases, a fully automated extraction process can be undesirable because
   it leads to a loss of control over which companies are chosen to be part of the
   output. To introduce custom weights into the process, more data can be joined and multiplied
