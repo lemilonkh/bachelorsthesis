@@ -75,7 +75,7 @@
 
   \section*{Abstract}
   { \large
-    Constructing a graph made up of thousands of businesses may be hard, but actually making sense of it is a lot harder.
+    Constructing a graph made up of millions of businesses may be hard, but actually making sense of it is a lot harder.
     With huge amounts of data potentially being integrated into the data lake every day, automatic methods for finding interesting areas in the graph are needed.
     This paper discusses different approaches that can be taken to extract useful knowledge from such a graph.
 
@@ -96,11 +96,6 @@
     and for increasing the degree of interconnectedness are introduced.\\
     Finally, the discussed algorithms are evaluated, conclusions are drawn
     and an outlook on further possible improvements is provided.
-  }
-
-  \section*{Zusammenfassung}
-  { \large
-
   }
 
   \clearpage
@@ -644,7 +639,33 @@
   \clearpage
 
   \pagestyle{plain}
+
   \section*{Zusammenfassung}
+  { \large
+    Einen Graph aus Millionen von Unternehmen zu konstruieren mag einige Probleme
+    bereiten, aber tats\"achlich Erkenntnisse daraus zu extrahieren ist um einiges schwieriger.
+    W\"ahrend potentiell riesige Datenmengen jeden Tag in die Datenbasis integriert werden,
+    sind automatisierte Methoden um interessante Bereiche des Graphen vonn\"oten.
+    Diese Arbeit diskutiert verschiedene Ans\"atze, um hilfreiches Wissen aus einem solchen Graphen zu extrahieren.
+
+    Zuerst wird das Bachelorprojekt "Ingestion" und die Technologien zur Implementierung
+    der Algorithmen in dieser Arbeit vorgestellt. Danach werden die Datenstrukturen, die die Basis der
+    Datenbasis darstellen, detailliert, gefolgt von einer Einf\"uhrung in das benutzte
+    Graphprozessierungs-Framework und einem Algorithmus zur Konstruktion einer Graph-Datenstruktur
+    aus den bereits diskutierten Datenstrukturen.
+
+    Im folgenden wird auf einen Algorithmus zur Extraktion von Konzernstrukturen aus dem Graph eingegangen,
+    sowie auf eine Methode, um strukturelle Muster zu finden. Diese funktionieren
+    mithilfe von Zusammenhangskomponenten-Analyse und Motif-Suche und sind als
+    Beispiele zur Extraktion auf Basis von strukturellen Eigenschaften dargelegt.
+
+    Nachfolgend wird ein automatisierter Prozess zur Graphvereinfachung durch die
+    Anwendung von PageRank- und Schwellwertbildungsalgorithmen vorgestellt, sowie
+    Methoden, um die Einfluss auf die Extraktion der Unternehmen und um die Verbundenheit
+    des resultierenden Graphen zu erh\"ohen.\\
+    Abschlie{\ss}end werden die diskutierten Algorithmen evaluiert, Schl\"usse gezogen
+    und ein Ausblick auf zuk\"unftig m\"ogliche Verbesserungen gegeben.
+  }
   \clearpage
 
   \section*{Statutory Declaration}
