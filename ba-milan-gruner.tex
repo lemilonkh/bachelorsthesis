@@ -369,7 +369,7 @@
   was a good starting algorithm that could be implemented using the connected component
   tagging implementation in the GraphFrames
   API\footnote{\url{https://graphframes.github.io/api/scala/index.html\#org.graphframes.lib.ConnectedComponents}}.
-  Here, all businesses that are connected via "owns" or "owned by"
+  Here, all businesses that are connected via partial or full ownership
   relations are considered as a company group.
 
   Before the ConnectedComponets algorithm is run, all ownership-related company
@@ -531,6 +531,7 @@
   relations present in the graph. This approach is useful when the input graph
   contains a great number of edges that are not desired in the output, but can,
   depending on the chosen threshold, lead to a very segmented and unconnected result graph.
+  \pagebreak
 
   \subsection{Adding custom weights to influence company extraction}
   \label{sec:custom_weights}
