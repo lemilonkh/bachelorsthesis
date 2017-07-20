@@ -597,6 +597,17 @@
   %\pagebreak
 
   \section{Conclusion and Evaluation}
+
+
+  The graph simplification algorithm describe in chapter \ref{sec:graph_simplification}
+  is useful for getting a better understanding of the structures present in the subject graph.
+  It can also be used to provide users with a basic navigation structure when the
+  graph gains more relations so its connectedness increases. This graph might
+  be preloaded in the Corporate Landscape Explorer developed during the previous
+  bachelor's project to show a base skeleton of companies that include its most
+  important connections.
+
+  \subsection{Technical challenges}
   The graph processing algorithms in this paper are to be seen as examples of
   how the specific graph features could be extracted. They are in no way the most
   efficient implementation (particularly because GraphFrames is quite slow in
@@ -605,15 +616,6 @@
   specific features like contained company groups or patterns that provide a different
   way to navigate the graph, instead of just traversing it using outgoing relations.
 
-  The graph simplification algorithm describe in chapter \ref{sec:graph_simplification}
-  is useful for getting a better understanding of the structures present in the subject graph
-  and can also be used to provide users with a basic navigation structure when the
-  graph gains more relations so its connectedness increases. This graph might
-  be preloaded in the Corporate Landscape Explorer developed during the previous
-  bachelor's project to show a base skeleton of companies that include its most
-  important connections.
-
-  \subsection{Technical challenges}
   The inclusion of automatically extracted relations holds many challenges of its own, because
   most algorithms in this paper are heavily dependent on the quality of the relations.
   For instance the company group extraction algorithm is extremely vulnerable
@@ -665,13 +667,15 @@
     Anwendung von PageRank- und Schwellwertbildungsalgorithmen vorgestellt, sowie
     Methoden, um die Einfluss auf die Extraktion der Unternehmen und um die Verbundenheit
     des resultierenden Graphen zu erh\"ohen.\\
-    Abschlie{\ss}end werden die diskutierten Algorithmen evaluiert, Schl\"usse gezogen
-    und ein Ausblick auf zuk\"unftig m\"ogliche Verbesserungen gegeben.
+    Abschlie{\ss}end werden die diskutierten Algorithmen evaluiert
+    und es wird ein Ausblick auf zuk\"unftig m\"ogliche Verbesserungen gegeben.
   }
   \clearpage
 
   \section*{Statutory Declaration}
-  I declare that I have authored this thesis independently, that I have not used any other than the declared resources, and that I have explicitly marked all material which has been quoted either literally or by content from the used sources.
+  I declare that I have authored this thesis independently, that I have not used
+  any other than the declared resources, and that I have explicitly marked all
+  material which has been quoted either literally or by content from the used sources.
   %Zitat Raschkowski
 
   Potsdam, July 21, 2017
