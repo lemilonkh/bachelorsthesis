@@ -1,5 +1,11 @@
 filename=ba-milan-gruner
 
+default:
+	pdflatex ${filename}
+	bibtex ${filename}||true
+	pdflatex ${filename}
+	pdflatex ${filename}
+
 pdf: ps
 	ps2pdf ${filename}.ps
 
