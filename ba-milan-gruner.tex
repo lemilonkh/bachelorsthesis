@@ -1,8 +1,8 @@
 \documentclass[
-        a4paper,     % Format A4
-        titlepage,   % mit Titelseite
-        oneside,     % twoside => zweiseitig
-        parskip      % mit Durchschuss (Abstand zwischen Absätzen)
+  a4paper,     % Format A4
+  titlepage,   % mit Titelseite
+  oneside,     % twoside => zweiseitig
+  parskip      % mit Durchschuss (Abstand zwischen Absätzen)
 ]{scrartcl}          % KOMA-Script Grundklasse     texdoc scrguide
 
 \usepackage[USenglish]{babel}
@@ -63,6 +63,7 @@
 \date{21.07.17}
 \publishers{
   Information Systems Group\\
+  Hasso Plattner Insitute\\
   ~\\
   \textbf{Supervisors}\\
   Prof. Dr. Felix Naumann\\
@@ -75,7 +76,7 @@
 \begin{document}
 
   \maketitle % Titelseite erzeugen
-  \clearpage % neue Seite
+  %\clearpage % neue Seite
 
   \section*{Abstract}
   { \large
@@ -135,7 +136,7 @@
   \pagebreak
 
   \section{The German Corporate Graph Project}
-    \subsection[Why a German Corporate Graph?]{Why a German Corporate Graph?\footnote{This and the next section was authored by Matthias Radscheit \cite{loeperradscheit}.}}
+    \subsection[Why a German Corporate Graph?]{Why a German Corporate Graph?\footnote{This and the next subsection were authored by Matthias Radscheit \cite{loeperradscheit}.}}
 
     When it comes to economic decisions, uncertainty is a critical issue. Following the rational choice theory approach, every market player is constantly trying to maximize his utility and minimize his effort.
 
@@ -203,9 +204,9 @@
     to the german business landscape. This means that some of the examples will be
     in German (but they will be translated if needed for understanding the technique).
 
-    \subsection{Usage Scenarios of Ingestion, Curation and GraphXplore}
+    \subsection{Usage Scenarios of Ingestion and Curation}
     The process of classic risk analysis which is still majorly employed in today's banks is mostly
-    a model-oriented process that relies on predictions and can be augmented by data-driven approaches.
+    a model-oriented process that relies on predictions, which can be augmented by data-driven approaches.
     The techniques that Ingestion, Curation and this paper offer are universally
     applicable to analyze huge amounts of structured and unstructured data
     in the form of WikiData, JSON, CSV or similar data as well as newspaper articles,
@@ -257,7 +258,7 @@
     and all its data source slave nodes are stored on the same machine.
     $id$ and $datasource$ are used as clustering keys, which control the sorting
     inside the data partitions produced by database queries. They are also easily
-    queryable when specific IDs or data source entries for a given master ID are
+    queried when specific IDs or data source entries for a given master ID are
     needed.
 
     When loading Cassandra data into a Spark job, simple fields (e.g. Strings)
@@ -270,11 +271,11 @@
     data source extraction and normalization steps in the Ingestion pipeline.
     It is structured in a way to make storing arbitrary data possible, by allowing
     to store a List of Strings for each property key. This way, a list of
-    eMail addresses can be stored as well as a single postal code and they can
+    email addresses can be stored as well as a single postal code and they can
     be treated the same way.
 
     The $relations$ field is structured in a two-dimensional map. The first level
-    is addressed by the target $subject$ ID, while the second level's keys are the
+    is addressed by the target $subject$ ID, while the second level keys are the
     specific relation type. The value that is returned when the field is queried
     by the target ID and relation type is the relation attribute, which is mostly
     used to store a confidence measure (a value from 0 to 1) or the count of the
@@ -288,7 +289,7 @@
     This means that fully automated processes may and will write millions of
     data entries to the data lake at an hourly basis (or even more frequent),
     so if any breaking changes are introduced by these, they need to be rerolled quickly.
-    This means that each version isn't saved as a diff like in version control systems
+    This means that each version isn't saved as a difference like in version control systems
     (e.g. git), but rather every single version has a copy of all the attributes,
     a timestamp and the name and version of the program that modified it.
     As our whole pipeline is made up of individual small Spark jobs that write
@@ -566,13 +567,13 @@
 
   First, the individual $pagerank$ values assigned to every node have to be normalized
   over the whole connected component to limit them to the interval $[0, 1]$,
-  so that the following tresholding step can work with a constant maximum value.
+  so that the following thresholding step can work with a constant maximum value.
   This is done by finding the maximum of this
   value in the component and dividing every node's value by it.
   Then, a threshold value has to be picked for the component. This can either be done
   using an absolute threshold that has to be determined for the whole graph, or
   using an adaptive thresholding technique like Otsu's method \cite{otsu1979threshold},
-  which is normally used for greyscale image thresholding, but is equally applicable
+  which is normally used for grayscale image thresholding, but is equally applicable
   here as it works on all one-dimensional histograms.
   It is particularly useful in this case because it removes the reliance
   on the degree of interconnectedness in the components and their size,
@@ -621,7 +622,7 @@
       (rankGraph.vertices.pagerank * weightFrame.weight).alias("pagerank"))
   \end{lstlisting}
 
-  After applying this step and the tresholding pass, companies that had a weight of $0.0$ assigned won't
+  After applying this step and the thresholding pass, companies that had a weight of $0.0$ assigned won't
   show up in the resulting graph, while companies with a weight greater than $1.0$
   are more likely to be part of it.
 
@@ -712,6 +713,7 @@
 
   \clearpage
 
+  \sloppy
   \bibliography{references}
   \clearpage
 
