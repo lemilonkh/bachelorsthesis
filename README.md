@@ -1,4 +1,4 @@
-# User-aided Pattern Search and Analysis on Business Graphs
+# Analysis and Simplification of Business Graphs
 Bachelor's thesis at HPI Potsdam
 
 ## [Final PDF](/ba-milan-gruner.pdf)
